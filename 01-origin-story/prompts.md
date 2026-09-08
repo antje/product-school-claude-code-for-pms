@@ -1,10 +1,10 @@
-# 01 · Origin Story — prompts
+# 01 · Origin Story: prompts
 
 **Context:** Rook Industries makes software for superheroes and the
 people who handle them.
 
 There are two products. Rook Dispatch is the one that gets a
-superhero to where they're needed when there's an emergency — it
+superhero to where they're needed when there's an emergency, it
 works out who is close enough and free enough to help, and gets hold
 of them. Rook Supply keeps a responder's equipment serviceable and
 accounted for, so a handler is never guessing whether the gear will
@@ -16,7 +16,7 @@ answering their phones the way they used to, and complaints have
 gone up sharply. You were not in the room for any of it.
 
 At the end of the session, ask Claude Code to save the prompts you
-wrote yourself below — not the starter prompt. The closing slide has
+wrote yourself below, not the starter prompt. The closing slide has
 the exact prompt to paste. By Module 6 this file is a prompt library
 built from your own questions.
 
@@ -28,7 +28,7 @@ In 00-rook/code/dispatch-routing/, simulate routing.score() for Farlight, Meteor
 
 ### 2.
 
-For Ironvale, Nightwell, Stormwrack, Sgt. Falkirk, The Drift, and The Longcast — whose offer volume in callout-history.csv is flat or rising despite tickets claiming a dry spell — look for anything in offer.py, the 4.2 changelog, or the tickets/interviews that points to a push-delivery problem (the 4.2 notes already mention a 'duplicate push notification on re-offer' defect). Is there a pattern by device, region, or capability tag that separates this group from the confirmed-starved group?
+For Ironvale, Nightwell, Stormwrack, Sgt. Falkirk, The Drift, and The Longcast, whose offer volume in callout-history.csv is flat or rising despite tickets claiming a dry spell, look for anything in offer.py, the 4.2 changelog, or the tickets/interviews that points to a push-delivery problem (the 4.2 notes already mention a 'duplicate push notification on re-offer' defect). Is there a pattern by device, region, or capability tag that separates this group from the confirmed-starved group?
 
 ### 3.
 
