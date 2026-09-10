@@ -12,8 +12,8 @@ Everything about Rook Industries in here is a **fictional teaching scenario**. I
 
 | # | Module | Superpower | What lands here | Status |
 |---|---|---|---|---|
-| 1 | **Orientation & Context** | Origin Story | `CLAUDE.md` at the root, written from Rook's own documents, plus your first prompts in `01-origin-story/prompts.md` | ☐ |
-| 2 | **Listening at Scale** | Super-Hearing | Your read of four interviews and twenty-five tickets, and where the two piles disagree, in `02-super-hearing/prompts.md` | ☐ |
+| 1 | **Orientation & Context** | Origin Story | `CLAUDE.md` at the root, written from Rook's own documents, plus your first prompts in `01-origin-story/prompts.md` | ☑ |
+| 2 | **Listening at Scale** | Super-Hearing | Your read of four interviews and twenty-five tickets, and where the two piles disagree, in `02-super-hearing/prompts.md` | ☑ |
 | 3 | **Reading the Numbers** | Rewind | The number you'd put in front of the Director of Product, and the rows it came from, in `03-rewind/prompts.md` | ☐ |
 | 4 | **Debugging Code** | X-Ray Vision | What the routing code does, and what it doesn't do, in `04-x-ray-vision/prompts.md` | ☐ |
 | 5 | **Building Yourself Without Coding** | Super-Speed | A one-page brief and a clickable prototype, alongside `05-super-speed/prompts.md` | ☐ |
