@@ -131,9 +131,8 @@ full writeup and next steps):
   Meteor Mite, The Undertow, and Vesper are genuinely starved; their offer
   volume collapsed toward zero, a real routing/ranking effect. Nightwell,
   Stormwrack, and Sgt. Falkirk are at record-high offer volume yet report
-  the identical complaint; more likely a push-delivery bug, possibly the
-  4.2 "duplicate push notification on re-offer" fix over-suppressing
-  legitimate re-offers for high-frequency responders.
+  the identical complaint. **The push-delivery explanation for this second
+  group is dead** — see the 10 Sept update below.
 - The recovering topline acceptance number may be misleading: as the
   starved group's volume shrinks toward zero, they drag the aggregate down
   less, so the number climbing back doesn't prove the split is healing.
@@ -142,10 +141,67 @@ full writeup and next steps):
   collapse. The likely trigger is the timeout cut crashing a responder's
   acceptance-history score in the release week itself, which then
   compounds through the top-ranked-only dispatch mechanism.
-- Marcus's Slack question about decline-vs-timeout scoring already has an
-  answer in `history.py` (a 2019 Wen comment), a documentation
-  findability gap, not an open design question.
+- Marcus's Slack question about decline-vs-timeout scoring has an answer in
+  `history.py`. It is **not** merely a documentation gap — it is the
+  mechanism. See the 10 Sept update below.
 - Capability-tag specialists (Undertow/aquatic, Farlight/crowd-management)
   may be structurally disadvantaged now that proximity dominates the score.
   "Coverage gap" wouldn't catch this, since it only fires when nobody
   matches at all.
+
+**Update, 10 Sept** (from reading the routing source, then re-testing the
+interviews and tickets against it; prompts and full findings in
+[02-super-hearing/prompts.md](02-super-hearing/prompts.md)):
+
+- **The ranking score is a ratchet, and that's the whole story.**
+  `history.py` has no decay — Wen's TODO asking whether the score should
+  ease back toward neutral is dated 2019 and still open.
+  `DECLINE_PENALTY` (0.12) is 1.5x `ACCEPTANCE_CREDIT` (0.08), so a
+  responder must accept 60% of offers just to hold level. A timeout is
+  scored identically to a refusal. `SCORE_FLOOR = 0.0` is absorbing: at
+  the floor you rank last on every callout, are never offered anything,
+  and can never earn the credit that would lift you. In release week the
+  whole cohort hit 54.2% — under the 60% break-even — so every score fell
+  at once. Most climbed back. Farlight, Meteor Mite, The Undertow and
+  Vesper did not, and **cannot recover without someone resetting them.**
+- **No push fix shipped in 4.2.** The CHANGELOG lists three items only:
+  ranking weights, timeout 90s->60s, console filter persistence. "Mobile
+  push reliability" was 4.1 (16 Jun); Priya's handoff confirms mobile has
+  been stable since. Any push hypothesis is misattributed.
+- **The delivery-bug theory is refuted by `pings_taken`.** Nightwell
+  accepted 14 callouts in the week she filed "nothing in like 10 days";
+  Stormwrack's take count hit a ten-week high the week his handler called
+  the quietest in two years. A silent phone can't be answered 14 times.
+  What's actually wrong for that group is still unknown.
+- **`glossary.docx` is wrong on two points that matter**, and everyone
+  including Priya has been reasoning from it: it says the recent-acceptance
+  component drops "until the component recovers" (it never recovers), and
+  that a decline is "distinct from a timeout in the data" (the code treats
+  them identically). This is why "wait for September" sounded reasonable.
+- **Don't trust `callout-history.csv` until Ravi confirms it.** It has no
+  provenance note and may be the rough pull Marcus offered on 19 Aug
+  rather than real weekly reporting. The code corroborates its four
+  collapsing responders; nothing corroborates its record-high numbers.
+- **The ticket pile is curated, not a population.** T-001..T-025, no gaps,
+  ~1/day, 100% on-topic, starting the day *after* the release — almost
+  certainly Nadia's assembled breakdown. It has no pre-4.2 baseline, so
+  "3x normal" is unverifiable and no "this is new" claim can be tested
+  against it.
+- **Watch distribution, not the acceptance rate.** Offer spread was flat
+  for six weeks (max/min 2.1-2.7x) then went 6x, 20x, 21x and is still
+  widening — while topline acceptance "recovers" 54% -> 73%. Total offer
+  volume is roughly flat (-6%), which by itself refutes the seasonal
+  theory. Nobody computes the spread.
+- **Each feedback channel caught only half the starved group.** Vesper and
+  Meteor Mite appear only in the interviews (zero tickets — their handlers
+  absorb it); Farlight and The Undertow appear only in the tickets. Read
+  both, always. Starvation generates no event, so it never generates a
+  ticket.
+- **Halloran's Supply issue is unresolved and is a safety matter:** eleven
+  days waiting on a quartermaster signature for a cracked vest plate, with
+  the responder in the field on degraded armour. It appears in no ticket
+  because the queue is callout-only.
+- **Two steers in Priya's handoff to resist:** that this is "mostly
+  seasonal," and that the filter-persistence tickets are "cosmetic and
+  noise." Ambrose's version is a silent-reversion bug, not a cosmetic
+  complaint.
