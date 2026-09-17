@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="600" viewBox="0 0 960 600" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#52514e"/></marker>
+    <marker id="ahb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#2a78d6"/></marker>
+  </defs>
+  <rect width="960" height="600" fill="#fcfcfb"/>
+  <text x="40" y="44" font-size="22" font-weight="600" fill="#0b0b0b">One thing adds points, one takes them off, and nothing saves them</text>
+  <text x="40" y="70" font-size="14" fill="#52514e">history.py: +0.08 per accept, −0.12 per miss, floor 0.0, ceiling 1.0. No decay, no reset, no persistence, no log.</text>
+  <text x="40" y="88" font-size="14" fill="#52514e">Offers go to the highest score first, so the score decides who is asked at all.</text>
+
+  <g transform="translate(0,-28)">
+  <!-- number line 0.0 .. 1.0 mapped to x=120..840 -->
+  <g stroke="#e1e0d9" stroke-width="1">
+    <line x1="192" y1="248" x2="192" y2="262"/><line x1="264" y1="248" x2="264" y2="262"/><line x1="336" y1="248" x2="336" y2="262"/><line x1="408" y1="248" x2="408" y2="262"/>
+    <line x1="552" y1="248" x2="552" y2="262"/><line x1="624" y1="248" x2="624" y2="262"/><line x1="696" y1="248" x2="696" y2="262"/><line x1="768" y1="248" x2="768" y2="262"/>
+  </g>
+  <line x1="120" y1="255" x2="840" y2="255" stroke="#c3c2b7" stroke-width="2"/>
+  <circle cx="120" cy="255" r="8" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+  <circle cx="480" cy="255" r="8" fill="#898781" stroke="#fcfcfb" stroke-width="2"/>
+  <circle cx="840" cy="255" r="8" fill="#898781" stroke="#fcfcfb" stroke-width="2"/>
+  <g font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="600">
+    <text x="120" y="286">0.0  floor</text><text x="480" y="286">0.5  NEUTRAL_SCORE</text><text x="840" y="286">1.0  ceiling</text>
+  </g>
+  <g font-size="11" fill="#898781" text-anchor="middle">
+    <text x="120" y="302">asked last, or never</text><text x="480" y="302">where a new responder starts</text><text x="840" y="302">where everyone sat before 4.2</text>
+  </g>
+
+  <!-- misses down: from 1.0 -> 0.0 (9), from 0.5 -> 0.0 (5) -->
+  <line x1="836" y1="190" x2="130" y2="190" stroke="#52514e" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="480" y="180" font-size="12" fill="#0b0b0b" text-anchor="middle"><tspan font-weight="600">9 misses</tspan> from the ceiling to the floor</text>
+  <line x1="476" y1="222" x2="130" y2="222" stroke="#52514e" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="300" y="212" font-size="12" fill="#0b0b0b" text-anchor="middle"><tspan font-weight="600">5 misses</tspan> from neutral to the floor</text>
+
+  <!-- accepts up: 0 -> 0.5 (7), 0 -> 1.0 (13) -->
+  <line x1="124" y1="326" x2="470" y2="326" stroke="#2a78d6" stroke-width="2" marker-end="url(#ahb)"/>
+  <text x="300" y="346" font-size="12" fill="#0b0b0b" text-anchor="middle"><tspan font-weight="600">7 accepts</tspan> back to neutral, still below everyone</text>
+  <line x1="124" y1="362" x2="830" y2="362" stroke="#2a78d6" stroke-width="2" marker-end="url(#ahb)"/>
+  <text x="480" y="382" font-size="12" fill="#0b0b0b" text-anchor="middle"><tspan font-weight="600">13 accepts</tspan> back to the ceiling, where the pack is, and you cannot accept what you are not offered</text>
+
+  </g>
+  <!-- stat tiles -->
+  <line x1="40" y1="414" x2="920" y2="414" stroke="#e1e0d9"/>
+  <text x="40" y="440" font-size="13" font-weight="600" fill="#0b0b0b">Share of 10,000 release-week offer orderings in which the bottom four are exactly Farlight, Meteor Mite, The Undertow and Vesper</text>
+  <text x="40" y="490" font-size="40" font-weight="600" fill="#52514e">26%</text>
+  <text x="130" y="476" font-size="12" fill="#0b0b0b">if every score started the week at <tspan font-weight="600">1.0</tspan></text>
+  <text x="130" y="494" font-size="12" fill="#52514e">six good weeks, scores kept between deploys</text>
+  <text x="500" y="490" font-size="40" font-weight="600" fill="#2a78d6">95%</text>
+  <text x="590" y="476" font-size="12" fill="#0b0b0b">if every score started the week at <tspan font-weight="600">0.5</tspan></text>
+  <text x="590" y="494" font-size="12" fill="#52514e">_scores = {} is never saved; a deploy resets it</text>
+
+  <text x="40" y="540" font-size="13" fill="#0b0b0b">If the 12 Aug deploy reset every score to 0.5, the whole fleet started release week five misses from the floor, and the ratchet alone explains all four.</text>
+  <text x="40" y="560" font-size="13" fill="#0b0b0b">Whether production persists the score is a yes/no for Marcus, and the most important question of the week.</text>
+  <text x="40" y="586" font-size="11" fill="#898781">Source: 00-rook/code/dispatch-routing/history.py lines 17, 22, 30–43; config.py; simulation over callout-history.csv rows 98–113. Module 4, Round 3.</text>
+</svg>

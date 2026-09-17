@@ -49,6 +49,8 @@ _Why this one: the proximity weight went up but the 45-minute cliff didn't move.
 - **4.1 and 4.2 stack.** 4.1 switched proximity from straight-line distance to travel-time estimate; on rural roads that runs longer, so more responders crossed the 45-minute line in June. 4.2 then raised the price of being past it. The "wide-geography fix" helps responders inside the horizon and punishes the ones outside it, and 4.1 moved people from the first group to the second.
 - **Question for Wen, drafted:** when the weights moved in 4.2, was `PROXIMITY_HORIZON_MINUTES` revisited? Was 45 set against straight-line distance originally? Is there a reason skills are a 15% weight rather than a gate?
 
+![4.2 made each miss cost less rank, and made misses three times as common](visuals/round-1-price-of-a-miss.svg)
+
 ### The hypothesis
 
 **The reason some responders are getting no pings at all is that the 4.2 timeout cut pushed them to the floor of a recent-acceptance score that has no way back up, in regions where someone is always a few minutes closer**, because the score only moves when you answer an offer, the 0.0 floor is absorbing, and under the new weights a floored responder needs to be 9.4 minutes nearer the incident than a neutral rival to be asked first, which in a region with any responder density never happens. The 60s window, not the weight rebalance, is what changed: it turned occasional misses into a cohort-wide miss rate under break-even, and the four who kept missing in the following days hit the floor and stayed there.
@@ -76,6 +78,8 @@ _Why this one: the same predict-then-check move as Module 3. Writing the four pr
 - **Prediction 4 holds.** The four got 10–12 offers in release week, normal volume, and 3–5 the week after. Score fell first, offers fell second, as the code requires.
 - **Where it stops: the boundary.** Vesper (−0.24) and Bulwark (−0.20) are 0.04 apart, which under 4.2 weights is 0.75 minutes of travel time. Bulwark got 10 offers in week 2 and took 8; Vesper got 5 and took 1. A 45-second edge can't produce a 2x offer gap on its own. The "in regions where someone is always a few minutes closer" clause of the hypothesis is doing real work, and the CSV has no location, region, or rank-position column to test it.
 - **The code answer for Marcus:** the change applied to everyone identically. No cohort logic, no score reset or migration, nobody exempt. Anyone declining before 4.2 kept their existing score, and the rebalance made that history count *less* (0.40 → 0.25), not more.
+
+![Rank all sixteen by release-week score loss and the bottom four are the four who went quiet](visuals/round-2-predict-then-check.svg)
 
 ### The one-sentence answer for Marcus
 
@@ -163,6 +167,8 @@ _Why this one: Module 2 found "starvation generates no event, so it never genera
 - **Seven silences, none logged.** List runs out (`offer.py:31` returns `None`, nobody told, no retry, no escalation); offer withdrawn after timeout (responder has no evidence it existed); ranked below the fold (not an event; the list is computed and discarded); score changes (never surfaced; nobody at Rook can look one up); score hits the floor (a `max()` call, looks like any other write); callout took k misses to fill (`dispatch()` returns the responder, not the count); unqualified responder asked first and declines (indistinguishable from any other decline). There is no `log`, `emit`, `notify`, or `audit` call anywhere in the folder; the 4.0 "routing override audit log" isn't in this code.
 - **The event that would have surfaced the four in week 1:** score crossed below a threshold, sent to the handler. All four crossed 0.2 in release week under the 0.5-start model. Nadia would have had four alerts by 16 Aug.
 - **The event that would tell Helen about the ~100 callouts:** `dispatch()` returned `None`, counted per week. One line at `offer.py:31`. The only silence that's a safety matter rather than a fairness one, and the cheapest to add.
+
+![One thing adds points, one takes them off, and nothing saves them](visuals/round-3-the-score-ladder.svg)
 
 ### Say it plainly
 
