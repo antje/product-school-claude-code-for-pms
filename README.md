@@ -15,7 +15,7 @@ Everything about Rook Industries in here is a **fictional teaching scenario**. I
 | 1 | **Orientation & Context** | Origin Story | `CLAUDE.md` at the root, written from Rook's own documents, plus your first prompts in `01-origin-story/prompts.md` | ☑ |
 | 2 | **Listening at Scale** | Super-Hearing | Your read of four interviews and twenty-five tickets, and where the two piles disagree, in `02-super-hearing/prompts.md` | ☑ |
 | 3 | **Reading the Numbers** | Rewind | The number you'd put in front of the Director of Product, and the rows it came from, in `03-rewind/prompts.md` | ☑ |
-| 4 | **Debugging Code** | X-Ray Vision | What the routing code does, and what it doesn't do, in `04-x-ray-vision/prompts.md` | ☐ |
+| 4 | **Debugging Code** | X-Ray Vision | What the routing code does, and what it doesn't do, in `04-x-ray-vision/prompts.md` | ☑ |
 | 5 | **Building Yourself Without Coding** | Super-Speed | A one-page brief and a clickable prototype, alongside `05-super-speed/prompts.md` | ☐ |
 | 6 | **Building Your Own Skills** | Sidekicks | `review-checklist`, written once and run twice, alongside `06-sidekicks/prompts.md` | ☐ |
 
@@ -30,19 +30,23 @@ At the end of every session, paste the closing prompt from the slides. Claude Co
 ## Repo structure
 
 ```
-claude-code-for-pms-final/
+product-school-claude-code-for-pms/
 ├── README.md                      ← this dashboard
-├── CLAUDE.md                      ← your working file · built in Module 1
-├── 00-rook/                       ← the company. Reference material for every module
+├── CLAUDE.md                      ← working context: company, vocabulary, people, roadmap · Module 1
+├── 4.2-investigation.md           ← findings log, one round per module, with confidence grades
+├── 4.2-regroup-brief.md           ← the brief for the regroup with Marcus and Nadia
+├── 00-rook/                       ← the company. Reference material, read-only
 │   ├── company/                   ← one-pagers, glossary, team roster, handover note, Slack thread
 │   ├── data/callout-history.csv   ← the weekly metrics export · Module 3
 │   ├── feedback/interviews/       ← four recorded conversations · Module 2
 │   ├── feedback/tickets/          ← twenty-five support tickets · Module 2
 │   └── code/dispatch-routing/     ← the routing code · Module 4
-├── 01-origin-story/prompts.md
-├── 02-super-hearing/prompts.md
-├── 03-rewind/prompts.md
-├── 04-x-ray-vision/prompts.md
+├── 01-origin-story/prompts.md     ← 3 prompts, with two dated corrections
+├── 02-super-hearing/prompts.md    ← 12 prompts in 4 rounds, each with what it found
+├── 03-rewind/prompts.md           ← 11 prompts in 3 rounds, confidence-graded, the number for Helen
+├── 04-x-ray-vision/
+│   ├── prompts.md                 ← 11 prompts in 3 rounds, the hypothesis, the answer for Marcus
+│   └── visuals/                   ← one chart per round: price of a miss, predict-then-check, the score ladder
 ├── 05-super-speed/
 │   ├── director-request.txt        ← the note your brief answers
 │   └── prompts.md
