@@ -16,7 +16,7 @@ Everything about Rook Industries in here is a **fictional teaching scenario**. I
 | 2 | **Listening at Scale** | Super-Hearing | Your read of four interviews and twenty-five tickets, and where the two piles disagree, in `02-super-hearing/prompts.md` | ☑ |
 | 3 | **Reading the Numbers** | Rewind | The number you'd put in front of the Director of Product, and the rows it came from, in `03-rewind/prompts.md` | ☑ |
 | 4 | **Debugging Code** | X-Ray Vision | What the routing code does, and what it doesn't do, in `04-x-ray-vision/prompts.md` | ☑ |
-| 5 | **Building Yourself Without Coding** | Super-Speed | A one-page brief and a clickable prototype, alongside `05-super-speed/prompts.md` | ☐ |
+| 5 | **Building Yourself Without Coding** | Super-Speed | A one-page brief and a clickable prototype, alongside `05-super-speed/prompts.md` | ☑ |
 | 6 | **Building Your Own Skills** | Sidekicks | `review-checklist`, written once and run twice, alongside `06-sidekicks/prompts.md` | ☐ |
 
 **You do not write or read any code in this course.** Every question you ask is in plain English.
@@ -48,8 +48,10 @@ product-school-claude-code-for-pms/
 │   ├── prompts.md                 ← 11 prompts in 3 rounds, the hypothesis, the answer for Marcus
 │   └── visuals/                   ← one chart per round: price of a miss, predict-then-check, the score ladder
 ├── 05-super-speed/
-│   ├── director-request.txt        ← the note your brief answers
-│   └── prompts.md
+│   ├── director-request.txt        ← Helen's note, the brief answers it
+│   ├── brief.md                    ← the one-pager for Helen
+│   ├── prototype.html              ← 5 clickable screens, Today vs Proposed
+│   └── prompts.md                  ← 7 prompts in 3 rounds
 └── 06-sidekicks/
     ├── briefs/                     ← four Rook one-pagers for your skill to check
     ├── scheduled-run-output.txt    ← what an overnight run looks like

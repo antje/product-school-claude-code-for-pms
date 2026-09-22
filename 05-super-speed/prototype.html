@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Put Him Back In The Order</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --ground:#e9edee; --surface:#fbfcfc; --raised:#ffffff;
+  --ink:#0d1618; --ink2:#44565a; --muted:#7b8a8d;
+  --line:#dbe2e3; --rule:#c2ced0;
+  --beacon:#0f6e8c; --beacon-d:#0a5570; --beacon-wash:#e4f1f5;
+  --amber:#96590a; --amber-wash:#fdf3e3;
+  --sea:#1d6b4a; --sea-wash:#e8f4ee;
+  --crit:#a32f2f; --crit-wash:#fbeeee;
+  --rail:#101b1e; --rail-ink:#dfe8e9;
+  --sans:"IBM Plex Sans",ui-sans-serif,system-ui,-apple-system,sans-serif;
+  --disp:"Archivo",var(--sans); --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){
+  --ground:#0a1214; --surface:#121d20; --raised:#172427;
+  --ink:#eaf1f2; --ink2:#a8babd; --muted:#7d8f92;
+  --line:#223236; --rule:#33474c;
+  --beacon:#4fb6d6; --beacon-d:#7fcde6; --beacon-wash:#122b34;
+  --amber:#d99b3f; --amber-wash:#2e2415;
+  --sea:#57b98a; --sea-wash:#122a20;
+  --crit:#e07a7a; --crit-wash:#2c1919;
+  --rail:#060d0f; --rail-ink:#cfdcde;
+}}
+:root[data-theme=dark]{
+  --ground:#0a1214; --surface:#121d20; --raised:#172427;
+  --ink:#eaf1f2; --ink2:#a8babd; --muted:#7d8f92;
+  --line:#223236; --rule:#33474c;
+  --beacon:#4fb6d6; --beacon-d:#7fcde6; --beacon-wash:#122b34;
+  --amber:#d99b3f; --amber-wash:#2e2415;
+  --sea:#57b98a; --sea-wash:#122a20;
+  --crit:#e07a7a; --crit-wash:#2c1919;
+  --rail:#060d0f; --rail-ink:#cfdcde;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0}
+body{background:var(--ground);color:var(--ink);font:15px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
+.notice{background:var(--rail);color:var(--rail-ink);font:500 12px/1.4 var(--mono);letter-spacing:.01em;padding:10px 20px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.notice b{color:var(--beacon-d);font-weight:500}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px 72px}
+header.mast{padding-block:28px 18px;display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.eyebrow{font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+h1{font:600 25px/1.15 var(--disp);letter-spacing:-.015em;margin:0;text-wrap:balance}
+.mast p{margin:6px 0 0;color:var(--ink2);font-size:13.5px;max-width:56ch}
+.switch{display:flex;gap:2px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:3px;overflow-x:auto;margin-bottom:20px}
+.switch button{flex:0 0 auto;border:0;background:transparent;color:var(--ink2);font:500 12.5px/1 var(--sans);padding:9px 13px;border-radius:7px;cursor:pointer;white-space:nowrap;display:flex;gap:7px;align-items:center}
+.switch button:hover{color:var(--ink)}
+.switch button .n{font:500 10px/1 var(--mono);color:var(--muted)}
+.switch button[aria-selected=true]{background:var(--beacon);color:#fff}
+.switch button[aria-selected=true] .n{color:rgba(255,255,255,.7)}
+.switch button:focus-visible{outline:2px solid var(--beacon);outline-offset:1px}
+.screen{display:none}.screen.on{display:block;animation:in .25s ease-out}
+@keyframes in{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.screen.on{animation:none}}
+.chrome{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 18px;border-bottom:1px solid var(--line);background:var(--raised);flex-wrap:wrap}
+.bar .t{font:600 13.5px/1 var(--disp);letter-spacing:-.005em}
+.bar .m{font:400 11.5px/1 var(--mono);color:var(--muted)}
+.cols{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr)}
+@media(max-width:800px){.cols{grid-template-columns:1fr}}
+.roster{border-right:1px solid var(--line);padding:16px;display:flex;flex-direction:column;gap:10px}
+@media(max-width:800px){.roster{border-right:0;border-bottom:1px solid var(--line)}}
+.sechead{font:500 10.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.card{border:1px solid var(--line);border-radius:10px;padding:13px;background:var(--raised)}
+.card .nm{font:600 14.5px/1.2 var(--disp)}
+.card .meta{font:400 11.5px/1.5 var(--mono);color:var(--muted);margin-top:3px}
+.card.hot{border-color:var(--amber);border-left:3px solid var(--amber)}
+.alert{margin-top:11px;background:var(--amber-wash);border-radius:8px;padding:11px;cursor:pointer;border:0;width:100%;text-align:left;font:inherit;color:inherit;display:block}
+.alert:hover{filter:brightness(.985)}
+.alert:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.alert .h{display:block;font:600 13.5px/1.3 var(--disp);color:var(--amber)}
+.alert .b{display:block;font-size:12.5px;color:var(--ink2);margin-top:5px}
+.alert .cue{font:500 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--amber);margin-top:9px;display:block}
+.aside{font-size:12px;color:var(--muted);line-height:1.5}
+.pane{padding:18px;min-width:0}
+.empty{color:var(--muted);text-align:center;padding:64px 12px;font-size:13.5px}
+h2{font:600 17px/1.2 var(--disp);letter-spacing:-.01em;margin:0 0 5px}
+.sub{color:var(--ink2);font-size:13px;margin:0 0 16px;max-width:60ch}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:460px}
+th{text-align:left;font:500 10.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:0 10px 8px 0;border-bottom:1px solid var(--rule)}
+td{padding:9px 10px 9px 0;border-bottom:1px solid var(--line);vertical-align:top}
+td.n{font:500 12.5px/1.5 var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.miss td{color:var(--ink2)}
+.rank{display:inline-flex;align-items:center;gap:6px;font:500 12.5px/1 var(--mono)}
+.rank i{display:block;height:3px;border-radius:2px;background:var(--rule);width:34px;position:relative;overflow:hidden}
+.rank i b{position:absolute;inset:0 auto 0 0;background:var(--beacon);display:block}
+.tag{display:inline-block;padding:2px 8px;border-radius:5px;font:500 11px/1.5 var(--mono);letter-spacing:.02em}
+.tag.no{background:var(--crit-wash);color:var(--crit)}
+.tag.yes{background:var(--sea-wash);color:var(--sea)}
+.insight{border-left:3px solid var(--beacon);background:var(--beacon-wash);border-radius:0 8px 8px 0;padding:12px 14px;margin:16px 0}
+.insight h3{font:600 12.5px/1.3 var(--disp);margin:0 0 3px;color:var(--beacon-d)}
+.insight p{margin:0;font-size:12.5px;color:var(--ink2)}
+.act{background:var(--beacon);color:#fff;border:0;border-radius:9px;padding:11px 17px;font:600 13.5px/1 var(--sans);cursor:pointer;margin-top:18px}
+.act:hover{background:var(--beacon-d)}
+.act:focus-visible{outline:2px solid var(--beacon);outline-offset:2px}
+.ghost{background:transparent;color:var(--ink);border:1px solid var(--rule);border-radius:9px;padding:10px 15px;font:500 13px/1 var(--sans);cursor:pointer}
+.ghost:hover{border-color:var(--beacon);color:var(--beacon-d)}
+.ghost:disabled{opacity:.5;cursor:default}
+.done{background:var(--sea-wash);border-left:3px solid var(--sea);border-radius:0 8px 8px 0;padding:13px 15px;margin-top:18px;font-size:13px;color:var(--ink2)}
+.done b{color:var(--sea)}
+/* phone */
+.stage{display:flex;flex-direction:column;align-items:center;gap:16px;padding:28px 12px}
+.device{width:328px;max-width:100%;background:var(--raised);border:11px solid #111c1f;border-radius:36px;overflow:hidden;box-shadow:0 18px 40px -22px rgba(6,20,24,.5)}
+.status{background:#111c1f;color:#cfdcde;font:500 10.5px/1 var(--mono);padding:4px 16px 11px;display:flex;justify-content:space-between}
+.pbody{padding:20px 18px 24px;min-height:330px}
+.big{font:600 21px/1.2 var(--disp);letter-spacing:-.015em;margin:0 0 7px;text-wrap:balance}
+.big.hot{color:var(--amber)}.big.ok{color:var(--sea)}.big.bea{color:var(--beacon-d)}
+.lede{color:var(--ink2);font-size:13.5px;margin:0 0 4px}
+.quote{border-left:2px solid var(--rule);padding:2px 0 2px 11px;margin:15px 0;font-size:13px;color:var(--ink2);font-style:italic}
+.quote cite{display:block;font:400 10.5px/1.6 var(--mono);color:var(--muted);font-style:normal;margin-top:5px}
+.rows{margin:15px 0 0}
+.row{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:13px}
+.row span{color:var(--ink2)}
+.row b{font:500 13px/1.5 var(--mono);font-variant-numeric:tabular-nums;text-align:right}
+.say{font-size:13px;margin:15px 0 0;color:var(--ink)}
+.note{font:400 11.5px/1.5 var(--mono);color:var(--muted);margin-top:18px}
+.cap{font-size:12.5px;color:var(--muted);max-width:46ch;text-align:center;line-height:1.55}
+.timer{height:5px;border-radius:3px;background:var(--line);overflow:hidden;margin:17px 0 15px}
+.timer b{display:block;height:100%;background:var(--beacon);transition:width .09s linear}
+.pbtns{display:flex;gap:9px}
+.pbtns button{flex:1;border-radius:9px;padding:11px;font:600 13px/1 var(--sans);cursor:pointer;border:1px solid var(--rule);background:transparent;color:var(--ink)}
+.pbtns button.p{background:var(--beacon);border-color:var(--beacon);color:#fff}
+/* dialog */
+dialog{border:1px solid var(--rule);border-radius:14px;padding:22px;max-width:430px;width:calc(100% - 32px);background:var(--surface);color:var(--ink)}
+dialog::backdrop{background:rgba(8,18,20,.55)}
+dialog h2{margin-bottom:7px}
+dialog label{display:block;font:500 10.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:15px 0 6px}
+dialog select{width:100%;font:inherit;font-size:13.5px;padding:10px;border:1px solid var(--rule);border-radius:9px;background:var(--raised);color:var(--ink)}
+.cost{background:var(--amber-wash);border-left:3px solid var(--amber);border-radius:0 8px 8px 0;padding:11px 13px;font-size:12.5px;color:var(--ink2);margin-top:15px}
+.dlgrow{display:flex;gap:9px;justify-content:flex-end;margin-top:18px}
+.dlgrow .act{margin:0}
+/* compare */
+.cmp td:nth-child(2){color:var(--ink2)}
+.cmp td:nth-child(3){border-left:1px solid var(--line);padding-left:14px}
+.cmp .win{color:var(--beacon-d);font-weight:600}
+.legend{display:flex;gap:14px;flex-wrap:wrap;align-items:center;padding:12px 20px;background:var(--surface);border:1px solid var(--line);border-radius:10px;margin-bottom:18px}
+.legend .k{display:flex;gap:7px;align-items:center;font-size:12.5px;color:var(--ink2)}
+.legend .k i{width:11px;height:11px;border-radius:3px;flex:0 0 auto}
+.legend .k i.new{background:var(--beacon)} .legend .k i.now{background:var(--rule)}
+.legend .lead{font:500 10.5px/1 var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.state{display:flex;gap:10px;align-items:flex-start;padding:13px 18px;border-bottom:1px solid var(--line)}
+.state .chip{flex:0 0 auto;font:500 10px/1 var(--mono);letter-spacing:.09em;text-transform:uppercase;padding:5px 8px;border-radius:5px}
+.chip.new{background:var(--beacon);color:#fff}
+.chip.now{background:var(--rule);color:var(--ink)}
+.state p{margin:0;font-size:12.5px;color:var(--ink2)}
+.state p b{color:var(--ink);font-weight:600}
+.toggle{display:inline-flex;background:var(--ground);border:1px solid var(--line);border-radius:8px;padding:2px}
+.toggle button{border:0;background:transparent;color:var(--ink2);font:500 11.5px/1 var(--sans);padding:7px 11px;border-radius:6px;cursor:pointer}
+.toggle button[aria-pressed=true]{background:var(--raised);color:var(--ink);box-shadow:0 1px 2px rgba(8,18,20,.12)}
+.toggle button:focus-visible{outline:2px solid var(--beacon);outline-offset:1px}
+.newmark{display:inline-block;font:500 9.5px/1 var(--mono);letter-spacing:.09em;background:var(--beacon);color:#fff;padding:3px 6px;border-radius:4px;vertical-align:2px;margin-left:8px}
+.cmp tr.net td{border-bottom:0;padding-top:13px;font-weight:600;color:var(--ink)}
+</style></head><body>
+
+<div class="notice"><b>ROUGH MOCK</b><span>Nothing here is built. No data is live. Rook Industries is a fictional teaching scenario.</span></div>
+
+<div class="wrap">
+  <header class="mast">
+    <div>
+      <p class="eyebrow">Rook Dispatch · for Helen · 22 Sep 2026</p>
+      <h1>Put him back in the order</h1>
+      <p>A rough, clickable mock of the thing described in <b>brief.md</b>: telling a handler when a responder has stopped being asked, and telling the responder why. Built around one real case, The Undertow, aquatic-tagged, handled by Desmond Okafor.</p>
+    </div>
+  </header>
+
+  <div class="legend">
+    <span class="lead">How to read this</span>
+    <span class="k"><i class="new"></i> in blue: what we would build</span>
+    <span class="k"><i class="now"></i> in grey: what Rook does today</span>
+    <span class="k">Five screens, in the order the month happened. Everything is clickable.</span>
+  </div>
+
+  <div class="switch" role="tablist">
+    <button role="tab" aria-selected="true" onclick="show('console',this)"><span class="n">16 AUG</span> Okafor's console</button>
+    <button role="tab" aria-selected="false" onclick="show('phone',this)"><span class="n">26 AUG</span> His phone</button>
+    <button role="tab" aria-selected="false" onclick="show('vanish',this)"><span class="n">31 AUG</span> The offer that vanished</button>
+    <button role="tab" aria-selected="false" onclick="show('quiet',this)"><span class="n">14 SEP</span> A week with no news</button>
+    <button role="tab" aria-selected="false" onclick="show('twice',this)"><span class="n">AUG</span> His month, twice</button>
+  </div>
+
+  <!-- CONSOLE -->
+  <section id="console" class="screen on">
+    <div class="chrome">
+      <div class="bar"><span class="t">Handler console</span><span class="m">Desmond Okafor · Sun 16 Aug 2026 · 08:41</span></div>
+      <div class="state">
+        <span class="chip new" id="cchip">Proposed</span>
+        <p id="cstate"><b>This is the screen we would build.</b> Okafor is told, on the day it happens, that a responder has dropped out of the order. Flip to Today to see the same morning as it actually looked.</p>
+        <span class="toggle" style="margin-left:auto">
+          <button id="btnNow" aria-pressed="false" onclick="setMode(false)">Today</button>
+          <button id="btnNew" aria-pressed="true" onclick="setMode(true)">Proposed</button>
+        </span>
+      </div>
+      <div class="cols">
+        <div class="roster">
+          <p class="sechead">My responders · 3</p>
+          <div class="card hot" id="utcard">
+            <div class="nm">The Undertow</div>
+            <div class="meta">aquatic · available · 1 callout / 7d</div>
+            <button class="alert" id="ualert" onclick="openDetail()">
+              <span class="h">He has stopped being asked.</span>
+              <span class="b">His place in the order crossed below where we flag it, on 12 August. Offered 4 callouts since, down from 12 the week before.</span>
+              <span class="cue">See what happened →</span>
+            </button>
+          </div>
+          <div class="card"><div class="nm">Sgt. Bulwark</div><div class="meta">structural-entry · available · 10 callouts / 7d</div></div>
+          <div class="card"><div class="nm">Halfmoon</div><div class="meta">cold-weather · available · 9 callouts / 7d</div></div>
+          <p class="aside" id="uaside">Today Okafor sees only the cards. He works it out himself three days later and files it as Low, because nothing tells him it is serious.</p>
+        </div>
+        <div class="pane" id="detail"><p class="empty">Open the alert to see the offer record.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHONE 26 AUG -->
+  <section id="phone" class="screen">
+    <div class="chrome"><div class="bar"><span class="t">Responder app</span><span class="m">The Undertow · Wed 26 Aug 2026</span></div>
+      <div class="state"><span class="chip new">Proposed</span><p><b>This screen does not exist today.</b> On 26 August his phone showed him nothing at all, which is why he wrote to us asking whether he was still in the system.</p></div>
+      <div class="stage">
+        <div class="device"><div class="status"><span>Rook</span><span>26 AUG · 19:04</span></div><div class="pbody" id="pbody"></div></div>
+        <p class="cap">This answers the ticket he filed from this phone on 26 August. Lift him on the console and come back.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VANISHED -->
+  <section id="vanish" class="screen">
+    <div class="chrome"><div class="bar"><span class="t">Responder app</span><span class="m">The Undertow · Mon 31 Aug 2026 · 14:22</span></div>
+      <div class="state"><span class="chip now">Today, then proposed</span><p><b>Press play and watch it twice.</b> First what his phone does now when an offer runs out, then what we would put there instead.</p></div>
+      <div class="stage">
+        <div class="device"><div class="status"><span>Rook</span><span>31 AUG · 14:22</span></div><div class="pbody" id="vbody"></div></div>
+        <button class="ghost" id="vbtn" onclick="vStep()">Play what happened</button>
+        <p class="cap">Okafor filed T&#8209;019 the same day, marked High: "Something finally came in for The Undertow today after two weeks of nothing, and he lost it before he could answer."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUIET -->
+  <section id="quiet" class="screen">
+    <div class="chrome"><div class="bar"><span class="t">Responder app</span><span class="m">The Undertow · Mon 14 Sep 2026 · after the lift</span></div>
+      <div class="state"><span class="chip new">Proposed</span><p><b>The same screen on a bad week.</b> He is back in the order and still nothing came up. If it cannot say something true here, it is a demo rather than a product.</p></div>
+      <div class="stage">
+        <div class="device"><div class="status"><span>Rook</span><span>14 SEP · 07:30</span></div>
+          <div class="pbody">
+            <p class="big">Nothing came up near you this week.</p>
+            <p class="lede">You are in the order at the same place as everyone else. Three callouts were within reach and all three were taken before they got to you.</p>
+            <div class="rows">
+              <div class="row"><span>Callouts near you</span><b>3</b></div>
+              <div class="row"><span>You were asked about</span><b>0</b></div>
+              <div class="row"><span>Where you come in the order</span><b>4th of 16</b></div>
+              <div class="row"><span>Closest you came</span><b>Tue 09:12<br>taken by the 2nd asked</b></div>
+            </div>
+            <p class="say">This is a quiet week, not a problem with your standing. Three of the last ten weeks looked like this before August.</p>
+            <p class="say">If two weeks go by like this, Desmond gets told and so do you.</p>
+            <p class="note">We will tell you when this changes.</p>
+          </div>
+        </div>
+        <p class="cap">A screen that only works when there is good news is a demo. This is the same screen on a week when the honest answer is that nothing happened.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TWICE -->
+  <section id="twice" class="screen">
+    <div class="chrome">
+      <div class="bar"><span class="t">The Undertow · 12 to 31 August</span><span class="m">what happened / what this would have done</span></div>
+      <div class="state"><span class="chip now">Today</span><span class="chip new">Proposed</span><p><b>The same month, side by side.</b> Left is what actually happened. Right is the same dates with the screens above in place.</p></div>
+      <div class="pane">
+        <div class="scroll"><table class="cmp">
+          <thead><tr><th style="width:68px">Date</th><th>What happened</th><th>With this built</th></tr></thead>
+          <tbody>
+            <tr><td class="n">12 Aug</td><td>Release ships. He is 2nd in the order, offered 11 callouts that week, catches 4.</td><td>Same. Nothing to flag yet.</td></tr>
+            <tr class="miss"><td class="n">16 Aug</td><td>He is 14th in the order. Nobody knows. No record is kept of any of it.</td><td><span class="win">Okafor gets the alert.</span> He sees the six callouts and the slide from 2nd to 14th, and puts him back the same day.</td></tr>
+            <tr class="miss"><td class="n">19 Aug</td><td>Okafor works it out himself and files T&#8209;005, marked <b>Low</b>. "A little puzzling." He has nothing to go on.</td><td>No ticket. It was handled on the 16th.</td></tr>
+            <tr class="miss"><td class="n">26 Aug</td><td>The Undertow writes to us from his phone: <i>"starting to wonder if im still even in the system"</i>. Nobody can answer him.</td><td><span class="win">His phone already answered it</span> on the 16th, and told him why.</td></tr>
+            <tr class="miss"><td class="n">31 Aug</td><td>One callout arrives after two weeks. Gone before he finishes reading it. Okafor files T&#8209;019, marked <b>High</b>.</td><td>He is 2nd in the order again, so it reaches him first and he has the full window.</td></tr>
+            <tr class="net"><td class="n">Net</td><td>Two tickets, one from the responder himself. 19 days. No change.</td><td>One alert. One decision with a name on it. Same day.</td></tr>
+          </tbody>
+        </table></div>
+        <div class="insight"><h3>The gap is the argument</h3><p>Nothing in the left column was hidden. Every fact in it was sitting in the system on 16 August. It was never written down or shown to anybody.</p></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<dialog id="dlg">
+  <h2>Put The Undertow back in the order</h2>
+  <p class="sub" style="margin-bottom:0">This decision carries your name and is recorded.</p>
+  <label for="why">Reason</label>
+  <select id="why">
+    <option>Missed offers during the 4.2 release week, did not decline work</option>
+    <option>Availability was correct throughout, confirmed with the responder</option>
+    <option>Other, I will write it up</option>
+  </select>
+  <label for="lvl">Put him back at</label>
+  <select id="lvl">
+    <option value="1.0">The same standing as everyone else</option>
+    <option value="0.5">The midpoint</option>
+  </select>
+  <p class="cost">The Gale has been picking up his callouts and will be asked less. Marcus is notified either way.</p>
+  <div class="dlgrow"><button class="ghost" onclick="dlg.close()">Cancel</button><button class="act" onclick="doLift()">Record it</button></div>
+</dialog>
+
+<script>
+var lifted=false, level="1.0", dlg=document.getElementById('dlg'), proposed=true;
+
+function setMode(on){
+  proposed=on;
+  document.getElementById('btnNew').setAttribute('aria-pressed',on);
+  document.getElementById('btnNow').setAttribute('aria-pressed',!on);
+  var chip=document.getElementById('cchip'), st=document.getElementById('cstate');
+  chip.className='chip '+(on?'new':'now'); chip.textContent=on?'Proposed':'Today';
+  st.innerHTML = on
+    ? '<b>This is the screen we would build.</b> Okafor is told, on the day it happens, that a responder has dropped out of the order. Flip to Today to see the same morning as it actually looked.'
+    : '<b>This is the same morning as it actually looked.</b> Three cards that say nothing is wrong. The only clue is a number Okafor would have to notice himself, and there is nothing to click.';
+  document.getElementById('utcard').className='card'+(on?' hot':'');
+  document.getElementById('ualert').hidden=!on;
+  document.getElementById('uaside').textContent = on
+    ? 'The alert, the offer record and the lift are all new. None of them exist in Dispatch today.'
+    : 'Okafor sees only the cards. He works it out himself three days later and files it as Low, because nothing tells him it is serious.';
+  if(!on) document.getElementById('detail').innerHTML='<p class="empty">Nothing to open. Dispatch keeps no record of who was offered what, so there is no screen behind this one.</p>';
+  else document.getElementById('detail').innerHTML='<p class="empty">Open the alert to see the offer record.</p>';
+}
+
+function show(id,btn){
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.toggle('on',s.id===id)});
+  document.querySelectorAll('.switch button').forEach(function(t){t.setAttribute('aria-selected',t===btn)});
+  if(id==='phone') renderPhone();
+}
+
+var offers=[
+ ["12 Aug","08:14","Harbour wall collapse",2,"no answer","60s"],
+ ["12 Aug","19:02","Flooded underpass",3,"no answer","60s"],
+ ["13 Aug","11:40","Capsized launch",4,"accepted","22s"],
+ ["14 Aug","06:55","Sea-wall breach",6,"no answer","60s"],
+ ["15 Aug","17:31","Marina fire, water side",9,"no answer","60s"],
+ ["16 Aug","05:20","Tidal rescue",14,"no answer","60s"]
+];
+
+function openDetail(){
+  var rows=offers.map(function(o){
+    var ok=o[4]==='accepted', pct=Math.round((17-o[3])/16*100);
+    return '<tr class="'+(ok?'':'miss')+'">'+
+      '<td class="n">'+o[0]+'<br><span style="color:var(--muted)">'+o[1]+'</span></td>'+
+      '<td>'+o[2]+'</td>'+
+      '<td class="n"><span class="rank">'+o[3]+'<i><b style="width:'+pct+'%"></b></i></span></td>'+
+      '<td><span class="tag '+(ok?'yes':'no')+'">'+o[4]+'</span></td>'+
+      '<td class="n">'+o[5]+'</td></tr>';
+  }).join('');
+  document.getElementById('detail').innerHTML=
+    '<h2>What happened to The Undertow<span class="newmark">NEW</span></h2>'+
+    '<p class="sub">Every callout he was considered for since 12 August, and where he came in the order. All six needed his tag. <b>Rook records none of this today.</b></p>'+
+    '<div class="scroll"><table><thead><tr><th>When</th><th>Callout</th><th>Place</th><th>Answer</th><th>Took</th></tr></thead><tbody>'+rows+'</tbody></table></div>'+
+    '<div class="insight"><h3>None of this is recorded today</h3><p>Dispatch keeps one number: how often he says yes. Not which callouts he was offered, not where he came in the order, not whether his phone ever showed it. That is why nobody could answer him.</p></div>'+
+    '<p class="sub" style="margin:0">He started 2nd on 12 August and was 14th by the 16th. One answered of six, and each miss pushed him further down. At one offer a week he would need thirteen in a row to reach where the others sit.</p>'+
+    (lifted?liftedBlock():'<button class="act" onclick="dlg.showModal()">Put him back in the order</button>');
+}
+
+function liftedBlock(){
+  return '<div class="done"><b>Recorded.</b> Desmond Okafor put The Undertow back at '+(level==="1.0"?'the same standing as everyone else':'the midpoint')+' on 16 August, because he missed offers during the release week rather than declining work.'+
+   (level==="0.5"?'<br><br>The midpoint still leaves him behind all fifteen others, who sit at the top of the range. At one offer a week that is about seven more perfect weeks before he catches up.':'')+
+   '<br><br>Marcus notified. The Gale will be asked less.</div>';
+}
+function doLift(){lifted=true;level=document.getElementById('lvl').value;dlg.close();openDetail();}
+
+function renderPhone(){
+  document.getElementById('pbody').innerHTML = lifted ? (
+    '<p class="big ok">You are back in the order.</p>'+
+    '<p class="lede">Desmond put you back on 16 August. You are asked at the same point as everyone else.</p>'+
+    '<div class="rows">'+
+      '<div class="row"><span>Callouts near you this week</span><b>6</b></div>'+
+      '<div class="row"><span>Where you come in the order</span><b>'+(level==="1.0"?"2nd of 16":"12th of 16")+'</b></div>'+
+      '<div class="row"><span>Reason given</span><b style="font-family:var(--sans);font-weight:400;max-width:170px">missed offers during the release week, not declined work</b></div>'+
+    '</div>'+
+    (level==="0.5"?'<p class="say">You are ahead of where you were, and still behind the others.</p>':'<p class="say">Nothing about your record was wrong. The system had stopped asking you, and that has been undone.</p>')+
+    '<p class="note">We will tell you when this changes.</p>'
+  ) : (
+    '<p class="big bea">You are still active.</p>'+
+    '<p class="lede">Nobody has taken you off. You are not suspended and your availability is set correctly.</p>'+
+    '<blockquote class="quote">"nothing again this week. starting to wonder if im still even in the system"<cite>what you wrote to us today</cite></blockquote>'+
+    '<div class="rows">'+
+      '<div class="row"><span>Callouts near you this week</span><b>6</b></div>'+
+      '<div class="row"><span>You were asked about</span><b>1</b></div>'+
+      '<div class="row"><span>Where you came in the order</span><b>14th of 16</b></div>'+
+    '</div>'+
+    '<p class="say">You are being asked last, so most callouts are taken before they reach you. That started the week the answering window got shorter, not because of anything you did.</p>'+
+    '<p class="say">Desmond can see this too, and it has been raised.</p>'+
+    '<p class="note">We will tell you when this changes.</p>'
+  );
+}
+
+var vs=0, vt=null;
+var vIdle='<p class="big">The Undertow</p><p class="lede">Nothing for two weeks.</p><p class="note">Press play below.</p>';
+function vStep(){
+  var b=document.getElementById('vbody'), btn=document.getElementById('vbtn');
+  if(vs===0){
+    b.innerHTML='<p class="big bea">Callout for you</p><p class="lede">Capsized launch, Fisher Row slipway. Aquatic.</p>'+
+      '<div class="timer"><b id="vbar" style="width:100%"></b></div>'+
+      '<div class="pbtns"><button class="p">Take it</button><button>Pass</button></div>'+
+      '<p class="note" id="vsec">60 seconds to answer</p>';
+    btn.disabled=true; btn.textContent='Waiting…';
+    var left=60, bar=document.getElementById('vbar'), sec=document.getElementById('vsec');
+    vt=setInterval(function(){
+      left-=4; if(bar)bar.style.width=Math.max(0,left/60*100)+'%';
+      if(sec)sec.textContent=Math.max(0,left)+' seconds to answer';
+      if(left<=0){clearInterval(vt); vs=1;
+        b.innerHTML='<p class="big">Gone.</p><p class="lede">That callout went to somebody else.</p>'+
+          '<p class="note" style="margin-top:22px">This is everything his phone shows him today. No name, no reason, no record that it happened.</p>';
+        btn.disabled=false; btn.textContent='What this design shows instead';}
+    },90);
+  } else if(vs===1){
+    vs=2;
+    b.innerHTML='<p class="big">That one went to someone else.</p><p class="lede">Capsized launch, Fisher Row. Taken 41 seconds in.</p>'+
+      '<div class="rows"><div class="row"><span>You were asked</span><b>1st</b></div>'+
+      '<div class="row"><span>Taken by</span><b>the 2nd asked</b></div>'+
+      '<div class="row"><span>Your window</span><b>60s</b></div></div>'+
+      '<p class="say">You were first in line for this one. Nothing went wrong with your standing.</p>'+
+      '<p class="say">The window is sixty seconds. If that is too short from where you keep your phone, tell Desmond and we will look at it.</p>'+
+      '<p class="note">We will tell you when this changes.</p>';
+    btn.textContent='Play it again';
+  } else { vs=0; b.innerHTML=vIdle; btn.textContent='Play what happened'; }
+}
+document.getElementById('vbody').innerHTML=vIdle;
+renderPhone();
+</script>
+</body></html>
