@@ -2,7 +2,11 @@
 
 > My work for Product School's **Claude Code for PMs** certification. One scenario, **Rook Industries**, worked across six two-hour sessions: a folder of company documents, two piles of feedback, a data file, and a codebase. By the end this repo holds a library of prompts I wrote myself, plus a brief, a working prototype, and a reusable skill.
 
-This is a **template repo**. Click **Use this template → Create a new repository**, name it something like `claude-code-for-pms-final`, keep it **private** to start, then open your new repo's folder in the Claude desktop app. This is an **individual project**: your work is yours alone.
+**Start with the final report:** [final-report.html](final-report.html), live at <https://antje.github.io/product-school-claude-code-for-pms/final-report.html>. It leads with what I would do, then shows how each module proved it, with the prompt that did the work.
+
+**The clickable prototype:** [05-super-speed/prototype.html](05-super-speed/prototype.html), live at <https://antje.github.io/product-school-claude-code-for-pms/05-super-speed/prototype.html>.
+
+By Antje Barth.
 
 Everything about Rook Industries in here is a **fictional teaching scenario**. It is not a real company, and nothing in it is a fact about the world.
 
@@ -17,7 +21,7 @@ Everything about Rook Industries in here is a **fictional teaching scenario**. I
 | 3 | **Reading the Numbers** | Rewind | The number you'd put in front of the Director of Product, and the rows it came from, in `03-rewind/prompts.md` | ☑ |
 | 4 | **Debugging Code** | X-Ray Vision | What the routing code does, and what it doesn't do, in `04-x-ray-vision/prompts.md` | ☑ |
 | 5 | **Building Yourself Without Coding** | Super-Speed | A one-page brief and a clickable prototype, alongside `05-super-speed/prompts.md` | ☑ |
-| 6 | **Building Your Own Skills** | Sidekicks | `review-checklist`, written once and run twice, alongside `06-sidekicks/prompts.md` | ☐ |
+| 6 | **Building Your Own Skills** | Sidekicks | `review-checklist`, written once and run twice, alongside `06-sidekicks/prompts.md` | ☑ |
 
 **You do not write or read any code in this course.** Every question you ask is in plain English.
 
@@ -32,6 +36,8 @@ At the end of every session, paste the closing prompt from the slides. Claude Co
 ```
 product-school-claude-code-for-pms/
 ├── README.md                      ← this dashboard
+├── final-report.html              ← the presentation · Module 6
+├── .claude/skills/review-checklist/SKILL.md  ← the skill · Module 6
 ├── CLAUDE.md                      ← working context: company, vocabulary, people, roadmap · Module 1
 ├── 4.2-investigation.md           ← findings log, one round per module, with confidence grades
 ├── 4.2-regroup-brief.md           ← the brief for the regroup with Marcus and Nadia
@@ -53,8 +59,11 @@ product-school-claude-code-for-pms/
 │   ├── prototype.html              ← 5 clickable screens, Today vs Proposed
 │   └── prompts.md                  ← 7 prompts in 3 rounds
 └── 06-sidekicks/
-    ├── briefs/                     ← four Rook one-pagers for your skill to check
-    ├── scheduled-run-output.txt    ← what an overnight run looks like
+    ├── briefs/                     ← four Rook one-pagers for the skill to check
+    ├── run-1-own-brief.txt         ← run 1 on my brief: 5 flags, then 0 after fixes
+    ├── run-2-template-briefs.txt   ← run 2: matches the answer key exactly
+    ├── schedule.md                 ← the weekly schedule, documented
+    ├── scheduled-run-output.txt    ← the answer key
     └── prompts.md
 ```
 
