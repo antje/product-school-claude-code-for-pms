@@ -109,3 +109,30 @@ What this run showed
   the same scrutiny as guessed ones.
 - Every fix is also a new edit. The timer decision needed three passes
   before the brief was consistent again.
+
+
+---
+Run 1d, after cutting the brief from 1,406 words to 1,020, same day
+
+The brief had grown with every fix and was no longer a one-pager. Cut it,
+then re-ran under the tightened criteria 2 and 6.
+
+brief.md
+  owner named ................... yes (Antje Barth, PM on Dispatch)
+  success measure ............... yes (moves only if handlers are told and
+                                  decide within a week; says outright that
+                                  fewer tickets would not prove it)
+  scope stays bounded ........... yes (timer in, decay out, title matches)
+  problem stated before fix ..... yes
+  evidence numbers sourced ...... yes (pointer now includes the interviews,
+                                  for Halloran's eleven days)
+  unknowns written as unknowns .. yes (the 0.2 crossing and "the other
+                                  fifteen sit at the top" are both written
+                                  as conditional on how scores behave)
+  -> 0 flags.
+
+1 brief checked, 0 flagged, 0 flags total.
+
+The tightened criterion 6 found one more thing while cutting: "where the
+other fifteen sit" assumed scores survive a deploy, the open question for
+Wen. It is now written as conditional on that.

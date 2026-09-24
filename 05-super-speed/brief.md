@@ -3,152 +3,116 @@
 For Helen. Rough on purpose.
 
 **Owner:** Antje Barth, PM on Dispatch. Marcus's team builds, Sofia designs
-the screens. Figures are from `callout-history.csv`, the routing code and the
-tickets; the working is in `4.2-investigation.md`, `03-rewind/prompts.md` and
-`04-x-ray-vision/prompts.md`.
+the screens. Figures come from `callout-history.csv`, the routing code, the
+tickets and the interviews; the working is in `4.2-investigation.md`,
+`03-rewind/prompts.md` and `04-x-ray-vision/prompts.md`.
 
 ---
 
-The quick fix is real. Putting the callout timeout back to 90 seconds is one
-number in `config.py`, and The Undertow would probably catch the one offer he
-gets in a week instead of watching it go.
-
-It still leaves him at one offer a week. The timer decides how long he has to
-answer; the recent-acceptance score decides whether he is asked at all, and
-his is on the floor. Engineering's afternoon fix addresses the thing he
-complained about second. We should still do it, in the same release as
-everything below and said out loud, not quietly and not on its own.
+Engineering can put the callout timeout back to 90 seconds this afternoon. It
+is one number in `config.py`, and it would help The Undertow catch the one
+offer he still gets each week. It would not get him more. The timer decides
+how long he has to answer. The recent-acceptance score decides whether he is
+asked at all, and his is on the floor. So we should turn the timer back, in
+the same release as what follows and said out loud, not on its own.
 
 **Wen's 2019 note asked whether the score should ease back toward neutral on
-its own. It should.** Nobody should carry a bad month into the spring, and
-today they carry it forever: accepting an offer is the only thing that adds
-points, and only people with points get offers. But decay would be slow at any
-sensible rate. At 0.02 a day, the rate I modelled, a single miss still takes
-six days to wear off, so it rescues the next person, not him. Decay is not in
-this build: it is the next piece of work, once we know where the score is
-stored.
+its own. It should.** Today a bad week lasts forever: only accepting an offer
+adds points, and only people with points get offers. Decay is not in this
+build. It drifts people toward the middle, which rescues the next person, not
+someone already on the floor.
 
-One thing shapes the order of everything below. The score lives in memory and
-is never written to disk. If production does the same, every deploy resets all
-sixteen responders to the middle, and an alert, a lift and a decay rule are
-all built on sand. I don't know yet, so the piece that depends on nothing goes
-first.
+That sets the order. In this code the score lives in memory and is never
+saved. If production does the same, every deploy resets all sixteen
+responders to the middle, and an alert or a lift built on the score would not
+last. I don't know yet, so the piece that depends on nothing ships first.
 
-## 1. Who it is for
+## Who it is for
 
 **The Undertow**, aquatic-tagged. Six steady weeks of eleven to thirteen
 callouts, nine or ten taken. Then the release: eleven offers, four caught.
-Then four. Then one, then one, none taken.
-
-What he can see when a callout goes elsewhere: nothing. No missed-call notice,
-no "you were third in line," no record that a job he was qualified for existed.
-On 26 August he filed a ticket from his phone, which responders almost never do:
+Then four, one, one, and none taken. When a callout goes elsewhere he sees
+nothing. On 26 August he wrote to us from his phone, which responders almost
+never do:
 
 > "nothing again this week. starting to wonder if im still even in the system"
 
-He is still in the system. Nobody could tell him, because nothing records that
-he was considered and passed over.
+He is. Nobody could tell him, because nothing records that he was considered
+and passed over.
 
-**Desmond Okafor**, his handler, sees a console card that doesn't change. No
-queue, no rank, no reason. He filed T-005 on 19 August marked Low, calling the
-quiet "a little puzzling." Twelve days later he filed T-019 marked High, after
-the one callout that arrived vanished before The Undertow could read who it was
-for. Nothing happened in between, because no signal existed to act on.
+**Desmond Okafor**, his handler, sees a console card that never changes. He
+filed T-005 on 19 August marked Low, calling the quiet "a little puzzling." On
+31 August he filed T-019 marked High, after the one callout that arrived
+vanished before The Undertow could read it. Nothing happened in between,
+because there was no signal to act on.
 
-## 2. What changes
+## What changes, in order
 
-**First, the system records what it did.** One line per offer: who it went to,
-which callout, their position in the list, whether the phone acknowledged it,
-what came back, how long it took. The code knows all of that when it takes a
-point off someone and keeps none of it. This depends on nothing else being
-true, so it ships first. It makes T-013 answerable the day it is filed, and it
-is how we learn from data whether scores survive a deploy.
+1. **Record every offer.** Who it went to, which callout, their place in the
+   order, whether the phone showed it, and what came back. The code knows all
+   of this when it takes a point off someone, and keeps none of it. It depends
+   on nothing else, so it ships first. It makes T-013 answerable the day it is
+   filed, and tells us from data whether scores survive a deploy.
+2. **Tell Okafor.** When a responder's score drops below a threshold, the
+   handler gets an alert: who, when, and how many callouts since. If every
+   score started release week at 0.5, as the code suggests, all four affected
+   responders crossed 0.2 that week. Okafor would have known around 16 August
+   instead of working it out by the 19th.
+3. **Tell The Undertow.** His phone says he is still active, where he stands,
+   and what came up near him this week. Not a score.
+4. **Let someone lift him.** If scores survive deploys, the other fifteen sit
+   at the top of the range, and from the floor he needs thirteen accepts in a
+   row to reach them, at about one offer a week. He cannot climb out. The lift
+   goes to the top of the range: the middle would leave him below all fifteen
+   for seven more accepts. Every lift is recorded with who did it and why.
 
-**Then Okafor gets told instead of noticing.** When a responder's score crosses
-a low threshold, his handler gets an alert: who, when, and how many callouts
-since. If every score started release week at 0.5, as the code suggests, all
-four affected responders crossed 0.2 that week, so Okafor would have had this
-around 16 August. He worked it out himself by the 19th,
-filed it Low because nothing told him it was serious, and waited.
+## What a lift costs
 
-**The Undertow gets his question answered.** On his phone: you are still
-active, here is where you stand, here is what came up near you this week and
-where it went. Not a score. The line that matters says he hasn't been removed.
+A lift from the floor to the top is worth about nineteen minutes of travel
+time in the ranking, enough to reorder two responders who live near each
+other. Kip handles Meteor Mite and The Gale in the same city. Since the
+release Meteor Mite has gone from eleven offers a week to one, and The Gale
+from thirteen to twenty-one. Lift Meteor Mite and The Gale is asked less. That
+is the point, and it should be said before we build it.
 
-**Somebody can act, and the arithmetic says what acting means.** From the
-floor, accepting every offer he gets, he needs thirteen in a row to reach where
-the other fifteen sit. Seven reaches the midpoint, still below all of them. He
-gets about one offer a week. He cannot climb out; somebody has to lift him.
+Three decisions are not mine alone:
 
-## What a lift costs, and who pays
+- **Who gets the alert** when a handler holds several responders.
+- **Who may lift someone**, Okafor or only Marcus. Helen's call.
+- **What a second lift in a month means.** If it keeps happening, the ranking
+  is wrong.
 
-Moving someone from the floor to the top of the range is worth about nineteen
-minutes of travel time in the ranking. Where two responders are minutes apart,
-that reorders them.
+## What it does not do
 
-Kip handles Meteor Mite and The Gale in the same city. Since the release Meteor
-Mite has gone from eleven callouts a week to one; The Gale from thirteen to
-twenty-one. Lift Meteor Mite and The Gale is asked less. That is the intended
-effect and somebody should say so before we build it.
+- **Change the ranking weights.** A separate argument.
+- **Reset anyone silently.** That is the failure being fixed.
+- **Promise The Undertow work.** It tells him where he stands, including when
+  he is behind.
+- **Touch Supply.** Halloran's eleven-day wait on a cracked vest plate is real,
+  and it is not this.
 
-The Gale isn't obviously fine either: twenty-one offered last week, sixteen
-taken, the most he has ever turned down. Kip called the two of them "two
-different products" on one screen. He already knew. An alert repeating what he
-told us weeks ago is not the fix.
+## How we'll know it worked
 
-Three decisions are open and not mine alone:
-
-- **Who receives the alert** when a handler holds several responders, and what
-  the console shows when one card starves while another floods.
-- **Who may lift someone**, Okafor or only Marcus. A trust question, Helen's
-  to answer.
-- **What happens on a second lift in a month.** If that recurs, the ranking is
-  wrong and we are papering over it.
-
-Two I'll decide unless someone objects. A lift goes to the top of the range,
-not the middle, because the middle leaves him below all fifteen others for
-seven more perfect weeks. And every lift is recorded with who did it and why,
-which we would have to build, since nothing here records anything today.
-
-## 3. What it deliberately does not do
-
-- **Doesn't change the ranking weights.** Proximity against acceptance history
-  is a separate argument.
-- **Doesn't silently reset anyone.** The failure we are fixing is a system that
-  changed someone's standing without telling anybody.
-- **Doesn't promise The Undertow work.** It tells him where he stands, including
-  when the answer is that he is behind.
-- **Isn't just a setting.** The timer is one number. Everything else here is
-  something a handler or a responder will notice.
-- **Doesn't touch Supply.** Halloran's eleven-day wait on a cracked vest plate
-  is real and is not this.
-
-## How we will know it worked
-
-No responder sits below the threshold for more than a week without their
+No responder stays below the threshold for more than a week without their
 handler told and a decision recorded. A week, because that is one cycle of
-Ravi's weekly report. For The Undertow it was nineteen days, 12 to 31 August,
-and no decision was ever made. Fewer tickets would not prove it: the worst
-affected never filed. The offer record will show it directly.
+Ravi's weekly report. For The Undertow it was nineteen days, and no decision.
+Fewer tickets would not prove it, because the worst affected never filed. The
+offer record shows it directly.
 
 ## Something to click
 
-`prototype.html` walks The Undertow's month in five screens: Okafor's console
-the morning the alert fires, with a switch between today and proposed; his
-phone answering what he asked on 26 August; the offer that vanished on the
-31st; an honest week with no news; and the whole month side by side. A mock,
-not a build.
+`prototype.html` walks his month in five screens, with a switch between today
+and the proposal. A mock, not a build.
 
 ## What I still need
 
-- **Wen, and this gates the rest:** where is the score stored, and what happened
-  to it when 4.2 deployed on 12 August? If production keeps it in memory like
-  this code does, the alert fires for everyone after every release, a lift lasts
-  until the next deploy, and decay means nothing.
-- **Wen:** is 0.2 the right alert threshold, or just where these four landed?
-- **Marcus:** is anything like that per-offer line already recorded somewhere,
-  in the 4.0 routing override audit log or elsewhere?
-- **Ravi:** how many callouts were created each week since June. Accepted counts
-  fell by about a hundred over the four weeks after release while offers went
-  out at the usual rate. Either a hundred incidents found nobody, or the file
-  means something other than what I think. That is bigger than this brief.
+- **Wen, first:** where is the score stored, and what happened to it on the
+  12 August deploy? If it resets on every deploy, the alert and the lift need
+  a different design.
+- **Wen:** is 0.2 the right threshold, or just where these four landed?
+- **Marcus:** is anything like the offer record already kept, in the 4.0
+  routing override audit log or elsewhere?
+- **Ravi:** callouts created per week since June. Accepted callouts fell by
+  about a hundred over the four weeks after release while offers held steady.
+  Either a hundred incidents found nobody, or the file means something else.
+  That is bigger than this brief.

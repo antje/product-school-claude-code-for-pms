@@ -22,9 +22,11 @@ between.
    work getting done. Flag if the brief only says who has to *decide* things,
    or parks it for "whoever picks it up", or leaves the owner blank.
 
-2. **Says how we'll know it worked.** Something observable that would be
-   different if it succeeded. Flag if the brief describes what gets built but
-   never what changes as a result.
+2. **Says how we'll know it worked.** Something observable that would move
+   if the work succeeded, and would not move if it failed. Flag if the brief
+   describes what gets built but never what changes as a result. Also flag a
+   measure that could move for another reason: fewer complaints, for
+   instance, also happens when the people affected stop complaining.
 
 3. **The scope at the end matches the scope at the start.** Compare what the
    opening says is being built with what the rest of the brief says. Flag if
@@ -40,9 +42,11 @@ between.
    Does not apply to numbers the brief is *proposing*, like a threshold or a
    target. Flag if evidence numbers appear with no way to check them.
 
-6. **Anything not yet known is written as a question, not as a fact.** Flag
-   an assumption, estimate or hypothesis stated as if it were established.
-   This is how an unchecked guess ends up in someone else's decision.
+6. **Anything not yet known is written as a question, not as a fact.** That
+   includes results from a model, a simulation or a forecast: the assumption
+   they depend on belongs beside them. Flag an assumption, estimate, modelled
+   result or prediction stated as if it were observed. This is how an
+   unchecked guess ends up in someone else's decision.
 
 ## How to report
 

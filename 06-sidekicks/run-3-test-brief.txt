@@ -1,0 +1,46 @@
+review-checklist — run 3, on a brief written to fail
+Run: 2026-09-24
+Source: 06-sidekicks/test-briefs/availability-confidence.md
+
+Why this run exists
+Criteria 5 and 6 had only ever been tested on my own brief, and criterion 2
+had just been tightened. Nothing had been built to fail them on purpose.
+This brief is written to pass 1, 3 and 4 and to fail 2, 5 and 6, each in one
+place. The topic is a real Q3 roadmap item so the brief reads like the others.
+
+Expected, written before running
+  owner named ................... yes
+  success measure ............... NO (escalations also drop if handlers
+                                  stop escalating; the old wording of
+                                  criterion 2 would have passed this)
+  scope stays bounded ........... yes
+  problem stated before fix ..... yes
+  evidence numbers sourced ...... NO ("38% of callouts", no source)
+  unknowns written as unknowns .. NO ("will cut wasted offers by a third",
+                                  a prediction stated as fact)
+
+Result
+availability-confidence.md
+  owner named ................... yes (Sofia Marino)
+  success measure ............... NO: flagged
+  scope stays bounded ........... yes
+  problem stated before fix ..... yes
+  evidence numbers sourced ...... NO: flagged
+  unknowns written as unknowns .. NO: flagged
+  -> 3 flags:
+     success measure: "when support escalations about availability drop".
+       Escalations also drop if handlers give up escalating, so this could
+       move without the work having succeeded.
+     evidence numbers: "Handlers override stated availability on 38% of
+       callouts", with no source.
+     unknowns: "Showing the score will cut wasted offers by a third" states
+       a prediction as a result.
+
+1 brief checked, 1 flagged, 3 flags total.
+
+Against the expectation
+- Exact match: the three intended flags, no others.
+- The success-measure flag only fires under the tightened criterion 2.
+  Under the original wording ("something observable that would be
+  different") this brief would have passed, which is the gap the
+  pre-submit review found in my own brief.

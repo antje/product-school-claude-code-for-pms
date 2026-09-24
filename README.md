@@ -64,6 +64,8 @@ product-school-claude-code-for-pms/
     ├── briefs/                     ← four Rook one-pagers for the skill to check
     ├── run-1-own-brief.txt         ← run 1 on my brief: 5 flags, then 0 after fixes
     ├── run-2-template-briefs.txt   ← run 2: matches the answer key exactly
+    ├── run-3-test-brief.txt        ← run 3: a brief written to fail, caught exactly
+    ├── test-briefs/                ← the known-bad brief behind run 3
     ├── schedule.md                 ← the weekly schedule, documented
     ├── scheduled-run-output.txt    ← the answer key
     └── prompts.md
