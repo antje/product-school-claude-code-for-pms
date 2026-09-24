@@ -2,6 +2,8 @@
 
 > My work for Product School's **Claude Code for PMs** certification. One scenario, **Rook Industries**, worked across six two-hour sessions: a folder of company documents, two piles of feedback, a data file, and a codebase. By the end this repo holds a library of prompts I wrote myself, plus a brief, a working prototype, and a reusable skill.
 
+**Release 4.2 pushed four reliable responders to the bottom of a ranking they cannot climb out of, and nothing in Dispatch noticed.** Total offers barely moved; they went to fewer people. The ask: reset those four this week, then build a record of every offer so the next one is seen the day it happens.
+
 **Start with the final report:** [final-report.html](final-report.html), live at <https://antje.github.io/product-school-claude-code-for-pms/final-report.html>. It leads with what I would do, then shows how each module proved it, with the prompt that did the work.
 
 **The clickable prototype:** [05-super-speed/prototype.html](05-super-speed/prototype.html), live at <https://antje.github.io/product-school-claude-code-for-pms/05-super-speed/prototype.html>.

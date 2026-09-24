@@ -187,15 +187,16 @@ footer .links a{color:#7fcde6}
 
 <section id="do">
   <p class="eyebrow">Start here</p>
-  <h2>What I would do, in order</h2>
+  <h2>Put four people back this week, then build the record</h2>
   <p class="lede">Turning the timer back to 90 seconds helps a stranded responder catch the one offer he still gets each week. It does not get him more offers. The ranking decides who is asked, and his standing is on the floor.</p>
   <div class="asks">
-    <div class="ask now"><div class="when">This week</div><div><h3>Put the four back where everyone else is</h3><p>Reset Farlight, Meteor Mite, The Undertow and Vesper to the top of the range, recorded with a name and a reason. A data change, not a release. The midpoint sounds fair and is not: everyone else is at the top, so it leaves them last for seven more perfect weeks.</p></div></div>
+    <div class="ask now"><div class="when">This week</div><div><h3>Put the four back where everyone else is</h3><p>Reset Farlight, Meteor Mite, The Undertow and Vesper to the top of the range, recorded with a name and a reason. A data change, not a release. The midpoint sounds fair and is not: everyone else is at the top, so it leaves them behind everyone for seven more accepts in a row.</p></div></div>
     <div class="ask"><div class="when">First build</div><div><h3>Record every offer</h3><p>Who it went to, where they were in the order, whether the phone showed it, what came back. Rook keeps none of this today. It depends on nothing else, and it is how we find out from data whether scores survive a deploy.</p></div></div>
-    <div class="ask"><div class="when">Then</div><div><h3>Tell the handler, and tell the responder</h3><p>Alert the handler the day a responder drops below the threshold. Show the responder that he is still active and where he stands. The Undertow asked exactly that on 26 August, and nobody could answer.</p></div></div>
+    <div class="ask"><div class="when">Then</div><div><h3>Tell the handler, and tell the responder</h3><p>Alert the handler the day a responder drops below the threshold. Show the responder that he is still active and where he stands. The Undertow asked that on 26 August, and nobody could answer.</p></div></div>
     <div class="ask"><div class="when">Next</div><div><h3>Answer Wen's 2019 question</h3><p>Yes, the standing should ease back over time. Nobody should carry one bad week forever. That fixes it for the next person, once we know where the score is kept.</p></div></div>
   </div>
   <div class="not"><b>Not</b><span>reverting the ranking weights</span><span>resetting anyone silently</span><span>a setting somebody flips</span></div>
+  <p class="small" style="margin-top:10px;max-width:70ch">The weights stay because the rebalance halved what each miss costs; the shorter timer caused the misses. No silent reset, because a system that changed people's standing without telling anyone is the failure being fixed. No setting, because Helen asked for something a handler would notice.</p>
 </section>
 
 <section id="what">
@@ -205,7 +206,7 @@ footer .links a{color:#7fcde6}
     <div class="tile"><div class="v am">4 of 16</div><div class="k">responders stopped being asked</div><div class="s">callout-history.csv, lines 114–161</div></div>
     <div class="tile"><div class="v am">79–89%</div><div class="k">fewer offers each, in the three weeks after release</div><div class="s">62% on the most cautious slicing</div></div>
     <div class="tile"><div class="v">−4%</div><div class="k">total offers across all sixteen</div><div class="s">172.3 a week before, 165 on 31 Aug</div></div>
-    <div class="tile"><div class="v">0</div><div class="k">alerts, records or messages about any of it</div><div class="s">no log call anywhere in the routing code</div></div>
+    <div class="tile"><div class="v">0</div><div class="k">alerts, records or messages about any of it</div><div class="s">no log call in the routing code we have</div></div>
   </div>
   <figure class="fig">
     <p class="ttl">Offers per responder, per week</p>
@@ -220,15 +221,15 @@ footer .links a{color:#7fcde6}
 
 <section id="how">
   <p class="eyebrow">How I proved it</p>
-  <h2>Six modules, six ways of checking</h2>
-  <p class="lede">Each module added a different source, and a different way of not taking the last answer on trust. The prompt shown for each is the one I wrote that did the most work, exactly as I typed it.</p>
+  <h2>Each module checked the one before it</h2>
+  <p class="lede">Each module added a different source, and a different way of not taking the last answer on trust. The prompt shown for each is the one I wrote that did the most work, as I typed it.</p>
 
   <div class="mod">
     <div class="side"><div class="n">Module 1 · Onboard</div><div class="t">Context from Rook's own documents</div><div class="how"><b>Technique</b>Point Claude at the folder and write a CLAUDE.md, then ask what a fresh chat could not.</div></div>
     <div class="body">
       <h3>The drop was a step on release day, not a slow August</h3>
       <p>My predecessor's handover said the dip was mostly seasonal and would recover in September. The weekly data shows a cliff in the exact week 4.2 shipped, with total offers flat. A quiet August does not produce that shape.</p>
-      <p>The first prompt below asked the right kind of question, separating one change from another. It aimed at the wrong change. The weights turned out to matter less than the timer.</p>
+      <p>4.2 bundled a ranking change and a shorter timer. The prompt below tried to separate them, which was the right first question with what Module 1 had. Module 4 answered it: the timer caused the misses, and the new weights made each miss cost less, not more.</p>
       <div class="prompt"><span class="pl">My prompt · 01-origin-story/prompts.md #1</span>In 00-rook/code/dispatch-routing/, simulate routing.score() for Farlight, Meteor Mite, The Undertow, and Vesper using the pre-4.2 weights (0.45/0.40/0.15) versus the 4.2 weights (0.60/0.25/0.15), holding proximity and capability match constant. How much of their collapse in callout-history.csv is explained by the weight rebalance alone, separate from the shorter timeout?</div>
     </div>
   </div>
@@ -237,11 +238,11 @@ footer .links a{color:#7fcde6}
     <div class="side"><div class="n">Module 2 · Listen</div><div class="t">Interviews against tickets</div><div class="how"><b>Technique</b>Group, count and quote, instead of summarising. Then ask what nobody said.</div></div>
     <div class="body">
       <h3>Each pile caught only half of the people hurt</h3>
-      <p>The four interviews were all with handlers, and none of them hold the phone the offers arrive on. The tickets had no pre-release baseline. Neither pile on its own would have found all four. Being passed over produces no event, so it never produces a ticket.</p>
+      <p>The four interviews were all with handlers, and none of them hold the phone the offers arrive on. The tickets had no pre-release baseline. Neither pile on its own would have found all four. Being passed over produces no event, so a ticket only appears if a handler happens to notice.</p>
       <div class="quad" role="table" aria-label="Who was hurt against who wrote in">
         <div class="blank"></div><div class="h" role="columnheader">Wrote in</div><div class="h" role="columnheader">Silent</div>
         <div class="h rh" role="rowheader">Hurt</div>
-        <div class="c hot"><b>4</b><span>Farlight, The Undertow, Ashgrove, Halfmoon</span></div>
+        <div class="c hot"><b>4</b><span>Farlight, The Undertow. Plus Ashgrove and Halfmoon, sliding 20 to 27%, a softer case.</span></div>
         <div class="c hot"><b>2</b><span>Vesper, Meteor Mite. Found only because their handlers were interviewed about something else.</span></div>
         <div class="h rh" role="rowheader">Not hurt</div>
         <div class="c"><b>8</b><span>At record volume, still reporting silence. Still unexplained.</span></div>
@@ -256,7 +257,7 @@ footer .links a{color:#7fcde6}
     <div class="body">
       <h3>The same four names, however you measure it</h3>
       <p>I recomputed the finding twenty-seven ways: three baselines, with and without release week, three metrics, three thresholds. The same four responders came out every time. Nobody joined the list and nobody left it. The most cautious version that is still true is a 62% drop.</p>
-      <p>This is the number I would put in front of Helen: four of sixteen responders now receive 62–100% fewer offers than before 12 August, while total offers are down 4%.</p>
+      <p>The number I put in front of Helen in Module 3 was the cautious one: four of sixteen responders receive 62–100% fewer offers than before 12 August, counting release week as after, while total offers are down 4%. On the three weeks after release alone the drop is 79–89%, the figure at the top of this report.</p>
       <div class="prompt"><span class="pl">My prompt · 03-rewind/prompts.md #2</span>Recompute the starvation finding under every reasonable alternative definition and show me how much it moves. Baseline: 6 weeks pre-release vs 3 weeks vs the single last week before. After-window: including vs excluding release week. Metric: pings sent, pings taken, or share of total weekly volume. Threshold: what counts as &quot;starved&quot; — under 2/week, under 25% of prior, or zero? Then tell me the version of the number that&#x27;s most conservative and still true, and whether any choice flips the four-responder list — does Ashgrove or Halfmoon join it, does anyone drop out?</div>
     </div>
   </div>
@@ -867,7 +868,7 @@ renderPhone();
 
 <section id="wrong">
   <p class="eyebrow">Credibility</p>
-  <h2>What I got wrong, and how I caught it</h2>
+  <h2>The numbers held. The sourcing is where I slipped.</h2>
   <p class="lede">Every number I recomputed held up. What failed was the sourcing and the reasoning around the numbers. I left each correction visible in the repo rather than cleaning it away.</p>
   <div class="wrong">
     <div class="w"><div class="was"><span class="lbl">Module 1</span><p>A prompt cited a <b>"duplicate push notification on re-offer" fix</b> in the 4.2 notes, and built a whole theory on it.</p></div><div class="now"><span class="lbl">Caught</span><p>The changelog lists three items and none of them is that. The theory was then refuted on data: Nightwell accepted 14 callouts in the week she reported hearing nothing. Corrected in place, dated.</p></div></div>
@@ -879,8 +880,11 @@ renderPhone();
 
 <section id="open">
   <p class="eyebrow">How sure I am</p>
-  <h2>Four questions still open</h2>
+  <h2>Two numbers from Ravi and one answer from Wen decide the rest</h2>
   <p class="lede">The four responders and the mechanism are confirmed by the data, the code and their handlers independently. These four questions decide how much further the rest goes.</p>
+  <div class="asks" style="margin:22px 0 26px">
+    <div class="ask"><div class="when">Would change the plan</div><div><h3>What moves this, and by when</h3><p><b>If Ravi's count of callouts created shows about a hundred went unanswered</b>, this stops being a fairness fix and goes to Helen as a safety issue the same day. <b>If Wen says the score survives a deploy</b>, the alert can ship before the offer record, because the number it watches is stable. <b>If the tagged-incident pull shows specialists losing to people without the tag</b>, capability becomes a gate on the list and that work goes ahead of the phone screen. All three answers are due before the regroup.</p></div></div>
+  </div>
   <div class="open">
     <div class="q"><div class="who">Wen</div><h3>Does the score survive a deploy?</h3><p>The code keeps it in memory and never saves it. If production does the same, every release resets everyone to the midpoint. Modelled that way, the ranking alone picks out exactly these four in 95% of cases, against 26% otherwise.</p><span class="conf md">Changes the build order</span></div>
     <div class="q"><div class="who">Ravi</div><h3>What is this data file?</h3><p>Eight busy responders report silence in weeks the file shows them at record volume. No reading makes both true. Nothing independent confirms the file's high numbers.</p><span class="conf md">Decides what the rest rests on</span></div>
@@ -892,7 +896,7 @@ renderPhone();
 </div>
 
 <footer><div class="in">
-  <div><h2>Antje Barth</h2><p>New PM on Rook Dispatch. Three weeks in, the answer was never hidden. Every fact in it was already in the system on 16 August. It had just never been read together.</p></div>
+  <div><h2>Antje Barth</h2><p>New PM on Rook Dispatch. Three weeks in, the answer was never hidden. Every fact in it was already in the system on 16 August. It had just never been read together. The plan changes if Ravi's numbers say callouts went unanswered, or if Wen says the score lasts.</p></div>
   <div class="links">
     <a href="https://github.com/antje/product-school-claude-code-for-pms">The repo</a>
     <a href="05-super-speed/prototype.html">The prototype</a>

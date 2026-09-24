@@ -2,10 +2,9 @@
 
 For Helen. Rough on purpose.
 
-**Owner:** me, as PM on Dispatch. Marcus's team would build the offer record
-and the alert; Sofia would design the two screens. Every figure below comes
-from `callout-history.csv`, the routing code and the tickets, and the working
-is in `4.2-investigation.md`, `03-rewind/` and `04-x-ray-vision/`.
+**Owner:** me. Marcus's team builds, Sofia designs the screens. Figures are
+from `callout-history.csv`, the routing code and the tickets; the working is
+in `4.2-investigation.md`.
 
 ---
 
@@ -123,10 +122,10 @@ which we would have to build, since nothing here records anything today.
 ## How we will know it worked
 
 No responder sits below the threshold for more than a week without their
-handler having been told and a decision recorded. For The Undertow that took
-nineteen days, from the release on 12 August to T-019 on the 31st, and no
-decision was ever made. The second signal is that tickets like T-013, a
-responder asking whether he is still in the system, stop arriving.
+handler told and a decision recorded. A week, because that is one cycle of
+Ravi's weekly report. For The Undertow it was nineteen days, 12 to 31 August,
+and no decision was ever made. Fewer tickets would not prove it: the worst
+affected never filed. The offer record will show it directly.
 
 ## Something to click
 
