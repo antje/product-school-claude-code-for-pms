@@ -1,4 +1,4 @@
-review-checklist — run 2, on the four briefs in 06-sidekicks/briefs/
+review-product-brief — run 2, on the four briefs in 06-sidekicks/briefs/
 Run: 2026-09-24, in class
 Source: 06-sidekicks/briefs/ (4 files)
 Stands in for the partner swap: I worked alone, and these four come with an

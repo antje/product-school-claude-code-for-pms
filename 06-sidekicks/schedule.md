@@ -1,4 +1,6 @@
-# Scheduling review-checklist
+# Scheduling review-product-brief
+
+Built in class as the course's `review-checklist`, renamed afterwards.
 
 Documented, not switched on. Turning it on creates a recurring cloud agent on
 my own Claude account, running every week against a repo built for a
@@ -9,7 +11,7 @@ turns it on.
 ## The prompt that turns it on
 
 ```
-Schedule review-checklist to run every Monday morning, and let me know what
+Schedule review-product-brief to run every Monday morning, and let me know what
 it finds. Nothing needs to be ready for it to fire today. I'm setting the
 habit, not waiting on the result.
 ```
@@ -19,7 +21,7 @@ habit, not waiting on the result.
 | | |
 |---|---|
 | **When** | Every Monday, 03:00 UTC, so the result is waiting at the start of the week in Chicago and Berlin |
-| **What it runs** | `review-checklist`, from `.claude/skills/review-checklist/SKILL.md`, unchanged |
+| **What it runs** | `review-product-brief`, from `.claude/skills/review-product-brief/SKILL.md`, unchanged |
 | **On what** | Every `.md` and `.txt` in `06-sidekicks/briefs/`, plus `05-super-speed/brief.md` |
 | **Where it writes** | Overwrites `06-sidekicks/scheduled-run-output.txt` with that week's report |
 | **Who hears about it** | Me, with the closing line: briefs checked, briefs flagged, total flags |

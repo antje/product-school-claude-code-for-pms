@@ -15,7 +15,7 @@ built from your own questions.
 
 ## Round 1 — the skill
 
-_Built from the starter, with criteria 5 and 6 added. Skill: [.claude/skills/review-checklist/SKILL.md](../.claude/skills/review-checklist/SKILL.md). Run 1 on my own brief: [run-1-own-brief.txt](run-1-own-brief.txt), 5 flags. Run 2 on the four template briefs: [run-2-template-briefs.txt](run-2-template-briefs.txt), matches the answer key exactly._
+_Built from the starter, with criteria 5 and 6 added, as `review-checklist`; renamed afterwards to `review-product-brief`. Skill: [.claude/skills/review-product-brief/SKILL.md](../.claude/skills/review-product-brief/SKILL.md). Run 1 on my own brief: [run-1-own-brief.txt](run-1-own-brief.txt), 5 flags. Run 2 on the four template briefs: [run-2-template-briefs.txt](run-2-template-briefs.txt), matches the answer key exactly._
 
 ### 1.
 

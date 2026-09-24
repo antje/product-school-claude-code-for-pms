@@ -1,4 +1,4 @@
-review-checklist — run 3, on a brief written to fail
+review-product-brief — run 3, on a brief written to fail
 Run: 2026-09-24
 Source: 06-sidekicks/test-briefs/availability-confidence.md
 
