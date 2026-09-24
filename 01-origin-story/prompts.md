@@ -42,10 +42,10 @@ For Ironvale, Nightwell, Stormwrack, Sgt. Falkirk, The Drift, and The Longcast, 
 
 ### 3.
 
-Draft a short brief for the 4.2 regroup: the two-population split, the capability-tag/proximity-weighting risk for specialists, and the decline-vs-timeout scoring question Marcus raised in Slack that history.py already answers
+Draft a short brief for the 4.2 regroup: the two-population split, the capability-tag/proximity-weighting risk for specialists, and the decline-vs-timeout scoring question Marcus raised in Slack that history.py already answers. For each, state what data or code change would confirm or kill the hypothesis, so the meeting produces decisions, not more speculation.
 
 > **Correction, 10 Sept.** "Already answers" understated it. `history.py:35-39`
 > does score a timeout identically to a refusal, but the `TODO(wen, 2019)` I
 > attributed that rationale to sits at lines 30-34 and asks a different
 > question: whether the score should decay back toward neutral. It never does,
-> and that is the mechanism, not a documentation gap.. For each, state what data or code change would confirm or kill the hypothesis, so the meeting produces decisions, not more speculation.
+> and that is the mechanism, not a documentation gap.

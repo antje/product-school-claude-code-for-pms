@@ -33,7 +33,7 @@ What I think of the result
   starter criteria were written to catch, and my brief misses both.
 - The two criteria I added caught the most dangerous one: "0.02 a day"
   reads as a fact and would travel into someone's decision as one. That
-  is exactly how the fabricated push defect got into a committed file in
+  is how the fabricated push defect got into a committed file in
   Module 1.
 - It did not flag the brief for length or tone, and did not flag the
   proposed 0.2 threshold as unsourced. Both are the rules working as
@@ -103,7 +103,8 @@ brief.md, after fixing
 
 What this run showed
 - Two of the four flags were introduced by edits made after the brief
-  had already passed. A brief that passed once is not a brief that passes.
+  had already passed. Passing once does not mean it still passes after
+  edits.
 - The 0.2 flag was present in runs 1 and 1b and missed both times. The
   criterion was right; applying it missed a case. Modelled numbers need
   the same scrutiny as guessed ones.

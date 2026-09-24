@@ -219,8 +219,8 @@ earlier note says so.
 - `review-checklist` lives in `.claude/skills/review-checklist/`. Six
   criteria: the course's four, plus two of mine, every evidence number cites a
   source and anything modelled or unknown is written as a question.
-- My brief failed it, was fixed, then failed again after later edits. A brief
-  that passed once is not a brief that passes.
+- My brief failed it, was fixed, then failed again after later edits.
+  Passing once did not mean it still passed after edits.
 - So far the skill has only been applied by hand from another session. A true
   run means asking for it in a session opened in this folder, where it loads.
 - `06-sidekicks/scheduled-run-output.txt` came with the template. It is the

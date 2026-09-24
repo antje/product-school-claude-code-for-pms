@@ -23,7 +23,7 @@ _Goal: I have a working map of five files. Something in them changed enough to l
 
 Using the values in `config.py` and the score rules in `history.py`, show a responder who starts at 0.5 and misses offers because of the 60s window. After each miss, work out how many minutes closer a rival with a neutral score needs to be to outrank them, under the old weights (0.45 / 0.40) and the new ones (0.60 / 0.25) side by side. Find the point where the responder can no longer be first in line for any callout in their region, and count how many misses it took to get there. Then explain why, once they're there, the code gives them no way back.
 
-_Why this one: Round 2 (Module 2) established the ratchet exists but never priced it. "Some responders get no pings" is a theory until it's a number — how many misses to fall below the fold, and whether 4.2 made that number smaller._
+_Why this one: Round 2 (Module 2) established the ratchet exists but never priced it. "Some responders get no pings" is a theory until it's a number: how many misses to fall below the fold, and whether 4.2 made that number smaller._
 
 ### 2.
 

@@ -35,7 +35,6 @@ repo, without the answer key in view.
 
 ## Why it earns a schedule
 
-The failure this course traced was not anyone missing something once. It was
-a check nobody owned, so it only happened when somebody went looking. The
-point of scheduling it is that the check happens whether or not anyone is
-paying attention that week.
+The failure this course traced was a check nobody owned, so it only
+happened when somebody went looking. On a schedule, the check happens
+whether or not anyone is paying attention that week.
