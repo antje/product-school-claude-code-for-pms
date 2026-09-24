@@ -122,15 +122,123 @@ non-4.2 Q3 items are still real commitments.
 ### What is known so far
 
 The "Where things stand" section above is the picture as handed to me on
-arrival, and parts of it have since been shown to be wrong. Current findings,
-with the evidence behind each, are in
-[4.2-investigation.md](4.2-investigation.md). Read that before reasoning about
-4.2. In particular the onboarding claim that two-thirds of tickets are
-"unexplained" no longer holds.
+arrival, and parts of it have since been shown to be wrong. The notes below
+record what each session added, in the order I learned it. The evidence
+behind each finding is in [4.2-investigation.md](4.2-investigation.md) and the
+module `prompts.md` files. Where a later session corrected an earlier one, the
+earlier note says so.
+
+### After Module 1, Onboard (8 Sep)
+
+- The acceptance drop is a step in the week 4.2 shipped, 78% to 54%, not a
+  gradual August slide. Priya's "seasonal, wait for September" does not fit.
+- Two groups report "phone never goes off". Four responders (Farlight, Meteor
+  Mite, The Undertow, Vesper) really did lose their offers. A busier group is
+  at record volume and says the same thing.
+- My working theory for the busy group was a push-delivery bug.
+  *(Refuted in Module 2: no such fix shipped in 4.2.)*
+- Marcus's question from 14 Aug is still unanswered. `history.py` scores a
+  timeout exactly like a decline.
+- The numbers I checked held up. One cited source did not. Open the file
+  before quoting a changelog entry, a line number or a defect.
+
+### After Module 2, Listen (10 Sep)
+
+- The four interviews are all handlers, and none of them holds the phone the
+  offers arrive on. Only Dot saw an offer vanish herself.
+- All 25 tickets date from 13 Aug to 5 Sep, numbered with no gaps. There is no
+  pre-4.2 baseline in the pile, so "3x normal" cannot be tested from it.
+- Each pile caught half of the four. Vesper and Meteor Mite appear only in the
+  interviews, Farlight and The Undertow only in the tickets. Losing offers
+  produces no event, so it only reaches a ticket if a handler notices.
+- The score is a ratchet: a miss costs 0.12, an accept earns 0.08, so a
+  responder must accept 60% to hold level. There is no decay and the floor is
+  0. The whole fleet accepted 54% in release week.
+- The 4.2 changelog lists three changes: ranking weights, timeout 90s to 60s,
+  filter persistence. Nightwell accepted 14 callouts in the week she reported
+  hearing nothing, so the busy group's problem is not delivery, and is still
+  unexplained.
+- `glossary.docx` is wrong twice: the score does not recover, and a decline is
+  not distinct from a timeout in the data.
+- Halloran has waited 11 days on a cracked vest plate. It is a Supply safety
+  issue and appears in no ticket.
+
+### After Module 3, Verify (15 Sep)
+
+- `callout-history.csv` has no provenance and nothing outside it confirms it.
+  Ravi should confirm what it is before any number from it goes further.
+- The same four names come out under 27 ways of measuring. My number for
+  Helen: four of sixteen responders get 62 to 100% fewer offers than before
+  12 Aug, while total offers are down 4%.
+- Part of the acceptance "recovery" is the four dropping out of the count:
+  they went from 28% of offers to under 2%.
+- Before 4.2 every responder accepted at least 60% nearly every week, so every
+  score sat at the ceiling. 4.2 broke a tie that had never mattered.
+- The file and the tickets agree on the four and disagree on everyone else.
+  Vesper and Meteor Mite were hurt and never filed.
+- Weekly accepted callouts fell from 132 to 96, 104, 108 and 120 while offers
+  held. If that means unfilled callouts, it is about 100 in four weeks. Low
+  confidence until Ravi counts callouts created.
+- The CSV has no timeout column. The 90 to 60 change lives in `CHANGELOG.md`
+  and `config.py`.
+
+### After Module 4, Inspect (17 Sep)
+
+- Only three numbers changed in 4.2, all in `config.py`. No logic changed.
+- The reweight made each miss cost less rank, not more. The shorter timer is
+  what multiplied the misses.
+- Answer to Marcus: the change applied to everyone the same way. The four were
+  not turning work down beforehand; Vesper had the second-best record.
+- Ranking all sixteen by what they lost in release week puts exactly the four
+  at the bottom. I wrote that prediction down before checking it.
+- `_scores` is never saved. If production does the same, the 12 Aug deploy
+  reset everyone to 0.5, and from there the ratchet alone picks out the four
+  in 95% of simulated orderings. This is a yes or no question for Wen.
+- Only accepting an offer adds points. Nothing in the routing code logs
+  anything, and `record_declined` throws away whether it was a timeout.
+- Kip is the only handler with two responders: Meteor Mite down 79%, The Gale
+  up 49%, same city.
+
+### After Module 5, Prototype (22 Sep)
+
+- My person is The Undertow, handled by Desmond Okafor. His own ticket, T-013,
+  is the problem statement: "starting to wonder if im still even in the
+  system".
+- The timer decides how long he has to answer. The score decides whether he is
+  asked at all. Reverting the timer alone gives him no more offers.
+- Build order: record every offer first, because it depends on nothing and
+  shows whether scores survive a deploy. Then alert the handler, tell the
+  responder where he stands, and let someone lift him to the top of the range.
+- A lift has a cost, and it has a name: when Meteor Mite goes back up, The
+  Gale is asked less.
+- Still open: who gets the alert when a handler holds several responders, who
+  may lift someone, and what a second lift in a month means.
+
+### After Module 6, Automate (24 Sep)
+
+- `review-checklist` lives in `.claude/skills/review-checklist/`. Six
+  criteria: the course's four, plus two of mine, every evidence number cites a
+  source and anything modelled or unknown is written as a question.
+- My brief failed it, was fixed, then failed again after later edits. A brief
+  that passed once is not a brief that passes.
+- So far the skill has only been applied by hand from another session. A true
+  run means asking for it in a session opened in this folder, where it loads.
+- `06-sidekicks/scheduled-run-output.txt` came with the template. It is the
+  course's example, not a run of mine.
+- The brief now turns the timer back to 90 seconds in the same release as the
+  rest, said openly, not on its own.
+- The 8 Sep regroup brief led with the push theory. It has been rewritten.
 
 ### Where my work lives
 
-- `4.2-investigation.md`, findings log, updated each module.
-- `4.2-regroup-brief.md`, the brief for the regroup with Marcus and Nadia.
+- `final-report.html`, the presentation, and the place to start.
+- `4.2-investigation.md`, the findings log.
+- `4.2-regroup-brief.md`, the brief for the regroup with Helen, Marcus, Wen
+  and Nadia.
+- `05-super-speed/brief.md` and `prototype.html`, the brief for Helen and the
+  clickable mock.
+- `04-x-ray-vision/visuals/`, one chart per round.
+- `.claude/skills/review-checklist/`, the skill, with its runs in
+  `06-sidekicks/`.
 - `0N-*/prompts.md`, the prompts I wrote, one file per module.
 - `00-rook/` is Rook's own material and is read-only. Never write there.

@@ -141,19 +141,6 @@ table.res td.n{font:500 13px var(--mono);white-space:nowrap}
 .pass{display:inline-block;font:500 11px/1.5 var(--mono);padding:1px 7px;border-radius:5px;background:var(--sea-wash);color:var(--sea)}
 .scroll{overflow-x:auto}
 
-.flip{display:inline-flex;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:3px;margin:6px 0 4px}
-.flip button{border:0;background:transparent;color:var(--ink2);font:500 13px/1 var(--sans);padding:10px 14px;border-radius:7px;cursor:pointer}
-.flip button[aria-pressed=true]{background:var(--beacon);color:#fff}
-svg .ln-a{fill:none;stroke:var(--beacon);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round}
-svg .dot-a{fill:var(--beacon);stroke:var(--surface);stroke-width:2}
-svg .lab-a{fill:var(--beacon-d);font:600 13px var(--disp)}
-.bridge{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:22px 0}
-@media(max-width:700px){.bridge{grid-template-columns:1fr}}
-.bridge > div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px}
-.bridge .big{font:700 34px/1 var(--disp);letter-spacing:-.02em}
-.bridge .lbl{font:500 10.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;display:block}
-.bridge p{margin:10px 0 0;font-size:14px;color:var(--ink2)}
-.caveat{display:inline-block;font:500 11px/1.5 var(--mono);padding:1px 7px;border-radius:5px;background:var(--line);color:var(--ink2)}
 /* wrong */
 .wrong{display:grid;gap:12px;margin-top:22px}
 .w{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface)}
@@ -186,7 +173,7 @@ footer .links a{color:#7fcde6}
 
 <nav class="rail" aria-label="Sections"><div class="in">
   <span class="brand">Rook Dispatch · 4.2</span>
-  <a href="#do">What I'd do</a><a href="#what">What happened</a><a href="#how">How I found it</a><a href="#fix">The fix</a><a href="#skill">Next time</a><a href="#wrong">What I got wrong</a><a href="#open">Still open</a>
+  <a href="#do">What I'd do</a><a href="#what">What happened</a><a href="#how">How I proved it</a><a href="#fix">The fix</a><a href="#wrong">What I got wrong</a><a href="#open">Still open</a>
 </div></nav>
 
 <div class="wrap">
@@ -204,7 +191,7 @@ footer .links a{color:#7fcde6}
   <p class="lede">Turning the timer back to 90 seconds helps a stranded responder catch the one offer he still gets each week. It does not get him more offers. The ranking decides who is asked, and his standing is on the floor.</p>
   <div class="asks">
     <div class="ask now"><div class="when">This week</div><div><h3>Put the four back where everyone else is</h3><p>Reset Farlight, Meteor Mite, The Undertow and Vesper to the top of the range, recorded with a name and a reason. A data change, not a release. The midpoint sounds fair and is not: everyone else is at the top, so it leaves them behind everyone for seven more accepts in a row.</p></div></div>
-    <div class="ask"><div class="when">First build</div><div><h3>Record every offer, and turn the timer back up</h3><p>Who it went to, where they were in the order, whether the phone showed it, what came back. Rook keeps none of this today. It depends on nothing else, and it is how we find out from data whether scores survive a deploy. The timer goes back to 90 seconds in the same release, said openly, so the next release week does not repeat this one.</p></div></div>
+    <div class="ask"><div class="when">First build</div><div><h3>Record every offer</h3><p>Who it went to, where they were in the order, whether the phone showed it, what came back. Rook keeps none of this today. It depends on nothing else, and it is how we find out from data whether scores survive a deploy.</p></div></div>
     <div class="ask"><div class="when">Then</div><div><h3>Tell the handler, and tell the responder</h3><p>Alert the handler the day a responder drops below the threshold. Show the responder that he is still active and where he stands. The Undertow asked that on 26 August, and nobody could answer.</p></div></div>
     <div class="ask"><div class="when">Next</div><div><h3>Answer Wen's 2019 question</h3><p>Yes, the standing should ease back over time. Nobody should carry one bad week forever. That fixes it for the next person, once we know where the score is kept.</p></div></div>
   </div>
@@ -214,53 +201,35 @@ footer .links a{color:#7fcde6}
 
 <section id="what">
   <p class="eyebrow">What 4.2 did</p>
-  <h2>The dashboard said recovery. Four people had disappeared.</h2>
+  <h2>The work didn't disappear. It went to fewer people.</h2>
   <div class="tiles">
     <div class="tile"><div class="v am">4 of 16</div><div class="k">responders stopped being asked</div><div class="s">callout-history.csv, lines 114–161</div></div>
     <div class="tile"><div class="v am">79–89%</div><div class="k">fewer offers each, in the three weeks after release</div><div class="s">62% on the most cautious slicing</div></div>
     <div class="tile"><div class="v">−4%</div><div class="k">total offers across all sixteen</div><div class="s">172.3 a week before, 165 on 31 Aug</div></div>
     <div class="tile"><div class="v">0</div><div class="k">alerts, records or messages about any of it</div><div class="s">no log call in the routing code we have</div></div>
   </div>
-  <div class="flip" role="group" aria-label="Choose a view">
-    <button id="vDash" aria-pressed="true" onclick="flip(true)">What the dashboard showed</button>
-    <button id="vPeople" aria-pressed="false" onclick="flip(false)">What happened to people</button>
-  </div>
-  <figure class="fig" id="figDash">
-    <p class="ttl">Weekly acceptance rate, all sixteen responders</p>
-    <p class="sub">Rook's headline metric. It dropped in release week and climbed back.</p>
-    <svg viewBox="0 0 920 330" role="img" aria-label="Weekly acceptance rate for all sixteen responders: about 77% before release, 54% in release week, back to 73% by 31 August."><line x1="48" x2="730" y1="286.0" y2="286.0" class="grid"/><text x="40" y="290.0" class="axt" text-anchor="end">40%</text><line x1="48" x2="730" y1="232.4" y2="232.4" class="grid"/><text x="40" y="236.4" class="axt" text-anchor="end">50%</text><line x1="48" x2="730" y1="178.8" y2="178.8" class="grid"/><text x="40" y="182.8" class="axt" text-anchor="end">60%</text><line x1="48" x2="730" y1="125.2" y2="125.2" class="grid"/><text x="40" y="129.2" class="axt" text-anchor="end">70%</text><line x1="48" x2="730" y1="71.6" y2="71.6" class="grid"/><text x="40" y="75.6" class="axt" text-anchor="end">80%</text><line x1="48" x2="730" y1="18.0" y2="18.0" class="grid"/><text x="40" y="22.0" class="axt" text-anchor="end">90%</text><line x1="502.7" x2="502.7" y1="14" y2="286" class="rel"/><text x="508.7" y="26" class="axl">4.2 ships, 12 Aug</text><text x="48.0" y="304" class="axt" text-anchor="middle">29 Jun</text><text x="275.3" y="304" class="axt" text-anchor="middle">20 Jul</text><text x="502.7" y="304" class="axt" text-anchor="middle">10 Aug</text><text x="730.0" y="304" class="axt" text-anchor="middle">31 Aug</text><line x1="48" x2="730" y1="178.8" y2="178.8" stroke="var(--amber)" stroke-width="1" stroke-dasharray="4 4"/><text x="54" y="172.8" class="axt">60%: below this, scores fall</text><polyline points="48.0,89.1 123.8,87.4 199.6,90.7 275.3,98.4 351.1,84.2 426.9,82.8 502.7,209.7 578.4,147.6 654.2,143.1 730.0,110.6" class="ln-a"/><circle cx="426.9" cy="82.8" r="5" class="dot-a"/><circle cx="502.7" cy="209.7" r="5" class="dot-a"/><circle cx="730.0" cy="110.6" r="5" class="dot-a"/><text x="512.7" y="214.7" class="lab-a">54%</text><text x="742" y="115.6" class="lab-a">73%, recovering?</text></svg>
-    <figcaption>Accepted offers over offers sent, per week. 77.9% the week before release, 54.2% in release week, 72.7% by 31 August. Source: <code>00-rook/data/callout-history.csv</code>. Now switch the view.</figcaption>
-  </figure>
-  <figure class="fig" id="figPeople" hidden>
+  <figure class="fig">
     <p class="ttl">Offers per responder, per week</p>
-    <p class="sub">The same weeks. The four in amber; everyone else in grey.</p>
-    <svg viewBox="0 0 920 330" role="img" aria-label="Weekly offers per responder. Four responders fall from 11 to 14 a week to 0 or 1 after 12 August while the other twelve rise."><line x1="48" x2="730" y1="286.0" y2="286.0" class="grid"/><text x="40" y="290.0" class="axt" text-anchor="end">0</text><line x1="48" x2="730" y1="225.1" y2="225.1" class="grid"/><text x="40" y="229.1" class="axt" text-anchor="end">5</text><line x1="48" x2="730" y1="164.2" y2="164.2" class="grid"/><text x="40" y="168.2" class="axt" text-anchor="end">10</text><line x1="48" x2="730" y1="103.3" y2="103.3" class="grid"/><text x="40" y="107.3" class="axt" text-anchor="end">15</text><line x1="48" x2="730" y1="42.4" y2="42.4" class="grid"/><text x="40" y="46.4" class="axt" text-anchor="end">20</text><line x1="502.7" x2="502.7" y1="14" y2="286" class="rel"/><text x="508.7" y="26" class="axl">4.2 ships, 12 Aug</text><text x="48.0" y="304" class="axt" text-anchor="middle">29 Jun</text><text x="275.3" y="304" class="axt" text-anchor="middle">20 Jul</text><text x="502.7" y="304" class="axt" text-anchor="middle">10 Aug</text><text x="730.0" y="304" class="axt" text-anchor="middle">31 Aug</text><polyline points="48.0,139.8 123.8,127.6 199.6,139.8 275.3,152.0 351.1,139.8 426.9,139.8 502.7,127.6 578.4,103.3 654.2,78.9 730.0,66.7" class="ln-o"/><polyline points="48.0,176.4 123.8,176.4 199.6,188.5 275.3,164.2 351.1,176.4 426.9,176.4 502.7,164.2 578.4,152.0 654.2,139.8 730.0,139.8" class="ln-o"/><polyline points="48.0,164.2 123.8,152.0 199.6,164.2 275.3,176.4 351.1,164.2 426.9,164.2 502.7,164.2 578.4,188.5 654.2,200.7 730.0,200.7" class="ln-o"/><polyline points="48.0,152.0 123.8,164.2 199.6,152.0 275.3,139.8 351.1,152.0 426.9,152.0 502.7,152.0 578.4,176.4 654.2,188.5 730.0,188.5" class="ln-o"/><polyline points="48.0,188.5 123.8,188.5 199.6,176.4 275.3,188.5 351.1,200.7 426.9,188.5 502.7,176.4 578.4,164.2 654.2,152.0 730.0,139.8" class="ln-o"/><polyline points="48.0,103.3 123.8,115.5 199.6,103.3 275.3,91.1 351.1,103.3 426.9,103.3 502.7,91.1 578.4,66.7 654.2,42.4 730.0,30.2" class="ln-o"/><polyline points="48.0,176.4 123.8,176.4 199.6,164.2 275.3,176.4 351.1,188.5 426.9,176.4 502.7,164.2 578.4,164.2 654.2,152.0 730.0,152.0" class="ln-o"/><polyline points="48.0,164.2 123.8,164.2 199.6,152.0 275.3,164.2 351.1,176.4 426.9,164.2 502.7,152.0 578.4,127.6 654.2,103.3 730.0,91.1" class="ln-o"/><polyline points="48.0,127.6 123.8,127.6 199.6,139.8 275.3,115.5 351.1,127.6 426.9,127.6 502.7,115.5 578.4,91.1 654.2,66.7 730.0,54.5" class="ln-o"/><polyline points="48.0,212.9 123.8,212.9 199.6,200.7 275.3,212.9 351.1,212.9 426.9,212.9 502.7,200.7 578.4,200.7 654.2,188.5 730.0,188.5" class="ln-o"/><polyline points="48.0,127.6 123.8,139.8 199.6,127.6 275.3,115.5 351.1,127.6 426.9,127.6 502.7,103.3 578.4,78.9 654.2,42.4 730.0,30.2" class="ln-o"/><polyline points="48.0,200.7 123.8,200.7 199.6,188.5 275.3,200.7 351.1,200.7 426.9,200.7 502.7,188.5 578.4,188.5 654.2,176.4 730.0,176.4" class="ln-o"/><polyline points="48.0,139.8 123.8,139.8 199.6,152.0 275.3,139.8 351.1,127.6 426.9,139.8 502.7,164.2 578.4,249.5 654.2,273.8 730.0,286.0" class="ln-s"/><polyline points="48.0,139.8 123.8,152.0 199.6,139.8 275.3,127.6 351.1,139.8 426.9,139.8 502.7,152.0 578.4,237.3 654.2,273.8 730.0,273.8" class="ln-s"/><polyline points="48.0,115.5 123.8,127.6 199.6,103.3 275.3,115.5 351.1,127.6 426.9,115.5 502.7,139.8 578.4,225.1 654.2,261.6 730.0,273.8" class="ln-s"/><polyline points="48.0,152.0 123.8,139.8 199.6,164.2 275.3,152.0 351.1,139.8 426.9,152.0 502.7,164.2 578.4,237.3 654.2,261.6 730.0,273.8" class="ln-s"/><text x="742" y="54.5" class="lab-o">The other twelve</text><text x="742" y="70.5" class="axt">busiest now 21 a week</text><text x="742" y="265.8" class="lab-s">The four</text><text x="742" y="281.8" class="axt">0 or 1 a week</text></svg>
-    <figcaption>Before release, the four averaged 11 to 14 offers a week, as reliable as anyone. Afterwards: Farlight 3, 1, 0. The Undertow 4, 1, 1. Vesper 5, 2, 1. Meteor Mite 4, 2, 1. Part of the recovery above is these four dropping out of the count: they went from 28% of all offers to under 2%. Source: <code>00-rook/data/callout-history.csv</code>.</figcaption>
+    <p class="sub">All sixteen responders, 29 June to 31 August. The four in amber; everyone else in grey.</p>
+    <svg viewBox="0 0 920 330" role="img" aria-label="Weekly callout offers per responder, 29 June to 31 August. Four responders fall from 11 to 14 a week to 0 or 1 after 12 August while the other twelve rise."><line x1="48" x2="730" y1="286.0" y2="286.0" class="grid"/><text x="40" y="290.0" class="axt" text-anchor="end">0</text><line x1="48" x2="730" y1="225.1" y2="225.1" class="grid"/><text x="40" y="229.1" class="axt" text-anchor="end">5</text><line x1="48" x2="730" y1="164.2" y2="164.2" class="grid"/><text x="40" y="168.2" class="axt" text-anchor="end">10</text><line x1="48" x2="730" y1="103.3" y2="103.3" class="grid"/><text x="40" y="107.3" class="axt" text-anchor="end">15</text><line x1="48" x2="730" y1="42.4" y2="42.4" class="grid"/><text x="40" y="46.4" class="axt" text-anchor="end">20</text><line x1="502.7" x2="502.7" y1="14" y2="286" class="rel"/><text x="508.7" y="26" class="axl">4.2 ships, 12 Aug</text><text x="48.0" y="304" class="axt" text-anchor="middle">29 Jun</text><text x="275.3" y="304" class="axt" text-anchor="middle">20 Jul</text><text x="502.7" y="304" class="axt" text-anchor="middle">10 Aug</text><text x="730.0" y="304" class="axt" text-anchor="middle">31 Aug</text><polyline points="48.0,139.8 123.8,127.6 199.6,139.8 275.3,152.0 351.1,139.8 426.9,139.8 502.7,127.6 578.4,103.3 654.2,78.9 730.0,66.7" class="ln-o"/><polyline points="48.0,176.4 123.8,176.4 199.6,188.5 275.3,164.2 351.1,176.4 426.9,176.4 502.7,164.2 578.4,152.0 654.2,139.8 730.0,139.8" class="ln-o"/><polyline points="48.0,164.2 123.8,152.0 199.6,164.2 275.3,176.4 351.1,164.2 426.9,164.2 502.7,164.2 578.4,188.5 654.2,200.7 730.0,200.7" class="ln-o"/><polyline points="48.0,152.0 123.8,164.2 199.6,152.0 275.3,139.8 351.1,152.0 426.9,152.0 502.7,152.0 578.4,176.4 654.2,188.5 730.0,188.5" class="ln-o"/><polyline points="48.0,188.5 123.8,188.5 199.6,176.4 275.3,188.5 351.1,200.7 426.9,188.5 502.7,176.4 578.4,164.2 654.2,152.0 730.0,139.8" class="ln-o"/><polyline points="48.0,103.3 123.8,115.5 199.6,103.3 275.3,91.1 351.1,103.3 426.9,103.3 502.7,91.1 578.4,66.7 654.2,42.4 730.0,30.2" class="ln-o"/><polyline points="48.0,176.4 123.8,176.4 199.6,164.2 275.3,176.4 351.1,188.5 426.9,176.4 502.7,164.2 578.4,164.2 654.2,152.0 730.0,152.0" class="ln-o"/><polyline points="48.0,164.2 123.8,164.2 199.6,152.0 275.3,164.2 351.1,176.4 426.9,164.2 502.7,152.0 578.4,127.6 654.2,103.3 730.0,91.1" class="ln-o"/><polyline points="48.0,127.6 123.8,127.6 199.6,139.8 275.3,115.5 351.1,127.6 426.9,127.6 502.7,115.5 578.4,91.1 654.2,66.7 730.0,54.5" class="ln-o"/><polyline points="48.0,212.9 123.8,212.9 199.6,200.7 275.3,212.9 351.1,212.9 426.9,212.9 502.7,200.7 578.4,200.7 654.2,188.5 730.0,188.5" class="ln-o"/><polyline points="48.0,127.6 123.8,139.8 199.6,127.6 275.3,115.5 351.1,127.6 426.9,127.6 502.7,103.3 578.4,78.9 654.2,42.4 730.0,30.2" class="ln-o"/><polyline points="48.0,200.7 123.8,200.7 199.6,188.5 275.3,200.7 351.1,200.7 426.9,200.7 502.7,188.5 578.4,188.5 654.2,176.4 730.0,176.4" class="ln-o"/><polyline points="48.0,139.8 123.8,139.8 199.6,152.0 275.3,139.8 351.1,127.6 426.9,139.8 502.7,164.2 578.4,249.5 654.2,273.8 730.0,286.0" class="ln-s"/><polyline points="48.0,139.8 123.8,152.0 199.6,139.8 275.3,127.6 351.1,139.8 426.9,139.8 502.7,152.0 578.4,237.3 654.2,273.8 730.0,273.8" class="ln-s"/><polyline points="48.0,115.5 123.8,127.6 199.6,103.3 275.3,115.5 351.1,127.6 426.9,115.5 502.7,139.8 578.4,225.1 654.2,261.6 730.0,273.8" class="ln-s"/><polyline points="48.0,152.0 123.8,139.8 199.6,164.2 275.3,152.0 351.1,139.8 426.9,152.0 502.7,164.2 578.4,237.3 654.2,261.6 730.0,273.8" class="ln-s"/><text x="742" y="54.5" class="lab-o">The other twelve</text><text x="742" y="70.5" class="axt">busiest now 21 a week</text><text x="742" y="265.8" class="lab-s">The four</text><text x="742" y="281.8" class="axt">0 or 1 a week</text></svg>
+    <figcaption>Before release, the four averaged 11 to 14 offers a week, as reliable as anyone. Afterwards: Farlight 3, 1, 0. The Undertow 4, 1, 1. Vesper 5, 2, 1. Meteor Mite 4, 2, 1. Source: <code>00-rook/data/callout-history.csv</code>.</figcaption>
   </figure>
-  <div class="col"><p>Only two of the six people hurt ever wrote in. Vesper and Meteor Mite never filed a ticket; they surfaced because their handlers were interviewed about something else. Losing offers produces no event, so it only reaches a ticket if someone happens to notice.</p></div>
-  <div class="quad" role="table" aria-label="Who was hurt against who wrote in">
-    <div class="blank"></div><div class="h" role="columnheader">Wrote in</div><div class="h" role="columnheader">Silent</div>
-    <div class="h rh" role="rowheader">Hurt</div>
-    <div class="c hot"><b>4</b><span>Farlight, The Undertow. Plus Ashgrove and Halfmoon, sliding 20 to 27%, a softer case.</span></div>
-    <div class="c hot"><b>2</b><span>Vesper, Meteor Mite.</span></div>
-    <div class="h rh" role="rowheader">Not hurt</div>
-    <div class="c"><b>8</b><span>At record volume, still reporting silence. Still unexplained.</span></div>
-    <div class="c"><b>2</b><span>Sgt. Bulwark, The Gale.</span></div>
+  <div class="col">
+    <p>The headline number hid it. Fleet acceptance fell from 78% to 54% in release week and has been climbing back since, which looks like recovery. Part of that climb is the four dropping out of the count: they used to receive 28% of all offers and now receive under 2%.</p>
   </div>
-  <p class="src">Tickets against the data file, from <code>03-rewind/prompts.md</code>, Round 2.</p>
 </section>
 
 <section id="how">
   <p class="eyebrow">How I proved it</p>
   <h2>Each module checked the one before it</h2>
-  <p class="lede">Each module added a different source, and a different way of not taking the last answer on trust. For each: the technique, one finding, and the prompt I wrote that produced it, as I typed it.</p>
+  <p class="lede">Each module added a different source, and a different way of not taking the last answer on trust. The prompt shown for each is the one I wrote that did the most work, as I typed it.</p>
 
   <div class="mod">
     <div class="side"><div class="n">Module 1 · Onboard</div><div class="t">Context from Rook's own documents</div><div class="how"><b>Technique</b>Point Claude at the folder and write a CLAUDE.md, then ask what a fresh chat could not.</div></div>
     <div class="body">
-      <h3>The ranking change alone was too small to explain it</h3>
-      <p>4.2 bundled a ranking change and a shorter timer, and my predecessor had said the dip was mostly seasonal. The prompt below separated the two changes. Modelled in Module 1, the ranking change on its own was not big enough to cause a collapse, and the likelier trigger was the timer cutting into responders' records in release week. Module 4 later confirmed that from the code.</p>
-      <p class="src">Modelled, not measured. <code>4.2-investigation.md</code>, Round 1.</p>
+      <h3>The drop was a step on release day, not a slow August</h3>
+      <p>My predecessor's handover said the dip was mostly seasonal and would recover in September. The weekly data shows a cliff in the exact week 4.2 shipped, with total offers flat. A quiet August does not produce that shape.</p>
+      <p>4.2 bundled a ranking change and a shorter timer. The prompt below tried to separate them, which was the right first question with what Module 1 had. Module 4 answered it: the timer caused the misses, and the new weights made each miss cost less, not more.</p>
       <div class="prompt"><span class="pl">My prompt · 01-origin-story/prompts.md #1</span>In 00-rook/code/dispatch-routing/, simulate routing.score() for Farlight, Meteor Mite, The Undertow, and Vesper using the pre-4.2 weights (0.45/0.40/0.15) versus the 4.2 weights (0.60/0.25/0.15), holding proximity and capability match constant. How much of their collapse in callout-history.csv is explained by the weight rebalance alone, separate from the shorter timeout?</div>
     </div>
   </div>
@@ -268,9 +237,17 @@ footer .links a{color:#7fcde6}
   <div class="mod">
     <div class="side"><div class="n">Module 2 · Listen</div><div class="t">Interviews against tickets</div><div class="how"><b>Technique</b>Group, count and quote, instead of summarising. Then ask what nobody said.</div></div>
     <div class="body">
-      <h3>The people interviewed cannot see the problem</h3>
-      <p>All four interviews were with handlers. When I asked what none of them mentioned, the answer was the responder's phone. None of them uses it, and that is where every offer arrives and disappears. Nobody complained about slow support either, in a month when tickets ran high, because two of them said filing something is where it stops.</p>
-      <p class="src"><code>02-super-hearing/prompts.md</code>, Round 2 findings.</p>
+      <h3>Each pile caught only half of the people hurt</h3>
+      <p>The four interviews were all with handlers, and none of them hold the phone the offers arrive on. The tickets had no pre-release baseline. Neither pile on its own would have found all four. Being passed over produces no event, so a ticket only appears if a handler happens to notice.</p>
+      <div class="quad" role="table" aria-label="Who was hurt against who wrote in">
+        <div class="blank"></div><div class="h" role="columnheader">Wrote in</div><div class="h" role="columnheader">Silent</div>
+        <div class="h rh" role="rowheader">Hurt</div>
+        <div class="c hot"><b>4</b><span>Farlight, The Undertow. Plus Ashgrove and Halfmoon, sliding 20 to 27%, a softer case.</span></div>
+        <div class="c hot"><b>2</b><span>Vesper, Meteor Mite. Found only because their handlers were interviewed about something else.</span></div>
+        <div class="h rh" role="rowheader">Not hurt</div>
+        <div class="c"><b>8</b><span>At record volume, still reporting silence. Still unexplained.</span></div>
+        <div class="c"><b>2</b><span>Sgt. Bulwark, The Gale</span></div>
+      </div>
       <div class="prompt"><span class="pl">My prompt · 02-super-hearing/prompts.md #6</span>What would people in this situation be expected to complain about that none of the four mentioned at all? Not the things one person raised and the others didn&#x27;t, but the things nobody raised. For each, say whether their silence means it isn&#x27;t happening, or means it wouldn&#x27;t be visible to someone in their role.</div>
     </div>
   </div>
@@ -425,31 +402,13 @@ footer .links a{color:#7fcde6}
     </div>
   </div>
 
-  <div class="mod">
+  <div class="mod" id="fix">
     <div class="side"><div class="n">Module 5 · Prototype</div><div class="t">The brief, then the build</div><div class="how"><b>Technique</b>Write the brief for one real person, push on it, then build something to click.</div></div>
     <div class="body">
-      <h3>Every fact in his month was in the system on 16 August</h3>
-      <p>I built the brief and the prototype for one person: The Undertow, who wrote to us from his phone on 26 August, <i>"starting to wonder if im still even in the system."</i> The prompt below produced the screen that puts his August side by side: what happened, and what would have happened with this built. Two tickets and nineteen days against one alert and one decision on the same day. It is the last screen of the prototype in <a href="#fix">the fix</a>.</p>
-      <div class="prompt"><span class="pl">My prompt · 05-super-speed/prompts.md #7</span>Put the two Augusts side by side for The Undertow, same dates, same rows. On the left, what actually happened: 12 August he is second in the order, 16 August he is fourteenth, Okafor files T-005 as Low on the 19th, The Undertow writes to us himself on the 26th, T-019 goes in as High on the 31st, and nothing changes at any point. On the right, the same month with this built: the alert on the 16th, Okafor acting, his phone answering him on the 26th. One person, one month, twice. That is the screen I want Helen looking at.</div>
-    </div>
-  </div>
-
-  <div class="mod">
-    <div class="side"><div class="n">Module 6 · Automate</div><div class="t">A check that runs without me</div><div class="how"><b>Technique</b>Write a habit down once as a skill, run it twice, schedule it.</div></div>
-    <div class="body">
-      <h3>It caught the most dangerous line in my own brief</h3>
-      <p><code>review-checklist</code> checks any brief for six things. Four came from the course. Two are mine, because four modules of corrections came from numbers that cited nothing and a guess written as a finding. On my own Module 5 brief it flagged "decay is slow, roughly 0.02 a day". That rate was an assumption from a simulation, written as a fact.</p>
-      <div class="prompt"><span class="pl">My prompt · 06-sidekicks/prompts.md #1</span>I want to save a habit as something I can reuse. When I review a brief before it goes any further, here&#x27;s what I actually check for:<br>- It names who owns it<br>- It says how we&#x27;ll know it worked<br>- The scope at the end matches the scope at the start<br>- It explains the problem before it proposes a fix<br>- Every number used as evidence says where it came from, so someone could reopen the source<br>- Anything not yet known is written as a question, not as a fact<br><br>The last two are mine. Four modules of this course were spent catching numbers that sounded right and cited nothing, and a guess written as a finding that ended up in a committed file. Turn that into a skill called review-checklist, so I can point it at any brief and get the same check every time, without me explaining it again. Report one line per criterion and quote the words behind every flag.</div>
-    </div>
-  </div>
-</section>
-
-<section id="fix">
-  <p class="eyebrow">The fix</p>
-  <h2>Tell the handler the day it happens, and tell the responder why</h2>
-  <p class="lede">Click first on the switch at the top of the console. Today shows the morning Okafor actually had: three cards, nothing wrong, nothing to open. Proposed shows the alert. Open it, then put The Undertow back and watch his phone change.</p>
-  <div class="frame">
-    <iframe title="Clickable prototype: the handler console and the responder's phone" loading="lazy" srcdoc="&lt;!doctype html&gt;
+      <h3>Built for The Undertow, not for a generic user</h3>
+      <p>On 26 August The Undertow wrote to us from his phone: <i>"nothing again this week. starting to wonder if im still even in the system."</i> The prototype is the answer to that sentence. It runs below. Switch the console between Today and Proposed to see what changes.</p>
+      <div class="frame">
+        <iframe title="Clickable prototype: the handler console and the responder's phone" loading="lazy" srcdoc="&lt;!doctype html&gt;
 &lt;html lang=&quot;en&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;
 &lt;title&gt;Put Him Back In The Order&lt;/title&gt;
 &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;&gt;&lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin&gt;
@@ -881,35 +840,32 @@ renderPhone();
 &lt;/script&gt;
 &lt;/body&gt;&lt;/html&gt;
 "></iframe>
-    <div class="cap"><span>Live prototype, five screens. A mock, not a build.</span><a href="05-super-speed/prototype.html">Open full screen</a></div>
+        <div class="cap"><span>Live prototype, five screens. A mock, not a build.</span><a href="05-super-speed/prototype.html">Open full screen</a></div>
+      </div>
+      <p>The brief behind it, <a href="05-super-speed/brief.md">05-super-speed/brief.md</a>, names what a lift costs: when Meteor Mite goes back up, The Gale, who took most of her callouts, gets asked less. Every reranking has somebody on the other side of it.</p>
+      <div class="prompt"><span class="pl">My prompt · 05-super-speed/prompts.md #7</span>Put the two Augusts side by side for The Undertow, same dates, same rows. On the left, what actually happened: 12 August he is second in the order, 16 August he is fourteenth, Okafor files T-005 as Low on the 19th, The Undertow writes to us himself on the 26th, T-019 goes in as High on the 31st, and nothing changes at any point. On the right, the same month with this built: the alert on the 16th, Okafor acting, his phone answering him on the 26th. One person, one month, twice. That is the screen I want Helen looking at.</div>
+    </div>
   </div>
-  <div class="col"><p>The brief behind it, <a href="05-super-speed/brief.md">05-super-speed/brief.md</a>, also says what a lift costs. When Meteor Mite goes back up, The Gale, who took most of her callouts, is asked less. Every reranking has somebody on the other side of it.</p></div>
-</section>
 
-<section id="skill">
-  <p class="eyebrow">Keeping it from happening again</p>
-  <h2>The number everyone watched is the kind my skill now rejects</h2>
-  <div class="bridge">
-    <div><span class="lbl">What Rook watched</span><div class="big">54% → 73%</div><p>Weekly acceptance, which Rook's glossary calls the headline metric. It fell in release week and was back most of the way by 31 August. It looked like recovery.</p></div>
-    <div><span class="lbl">What was happening</span><div class="big" style="color:var(--amber)">28% → under 2%</div><p>The four's share of all offers over the same weeks. Part of the recovery was them no longer being counted.</p></div>
+  <div class="mod">
+    <div class="side"><div class="n">Module 6 · Automate</div><div class="t">A check that runs without me</div><div class="how"><b>Technique</b>Write a habit down once as a skill, run it twice, schedule it.</div></div>
+    <div class="body">
+      <h3>It caught the most dangerous line in my own brief</h3>
+      <p><code>review-checklist</code> checks any brief for six things. Four came from the course. Two are mine, because four modules of corrections came from numbers that cited nothing and a guess written as a finding.</p>
+      <div class="scroll"><table class="res">
+        <thead><tr><th>Run</th><th>On</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td class="n">1</td><td>My Module 5 brief</td><td><span class="flag">5 flags</span> No owner, no success measure, decay never scoped, unsourced numbers, and "decay is slow, roughly 0.02 a day" stated as fact. That rate was an assumption in a simulation.</td></tr>
+          <tr><td class="n">1b</td><td>The same brief, fixed</td><td><span class="pass">0 flags</span></td></tr>
+          <tr><td class="n">1c</td><td>The brief again, after later edits</td><td><span class="flag">4 flags</span> Two introduced by edits made after it had passed, and one modelled number stated as observed that runs 1 and 1b both missed. Fixed; <span class="pass">0 flags</span></td></tr>
+          <tr><td class="n">2</td><td>Four briefs with a known answer</td><td><span class="pass">Exact match</span> Same four flags as the answer key, no extras. The two criteria I added produced no noise.</td></tr>
+          <tr><td class="n">3</td><td>A brief written to fail</td><td><span class="pass">Exact match</span> Built to fail three criteria and pass three, expectation written first. It caught all three, including a success measure the original wording of the skill would have passed.</td></tr>
+        </tbody>
+      </table></div>
+      <p class="small">Scheduled weekly, Monday 03:00 UTC, over every brief in the repo. Documented in <a href="06-sidekicks/schedule.md">06-sidekicks/schedule.md</a> rather than left running as a live job for a fictional scenario.</p>
+      <div class="prompt"><span class="pl">My prompt · 06-sidekicks/prompts.md #1</span>I want to save a habit as something I can reuse. When I review a brief before it goes any further, here&#x27;s what I actually check for:<br>- It names who owns it<br>- It says how we&#x27;ll know it worked<br>- The scope at the end matches the scope at the start<br>- It explains the problem before it proposes a fix<br>- Every number used as evidence says where it came from, so someone could reopen the source<br>- Anything not yet known is written as a question, not as a fact<br><br>The last two are mine. Four modules of this course were spent catching numbers that sounded right and cited nothing, and a guess written as a finding that ended up in a committed file. Turn that into a skill called review-checklist, so I can point it at any brief and get the same check every time, without me explaining it again. Report one line per criterion and quote the words behind every flag.</div>
+    </div>
   </div>
-  <div class="col">
-    <p>My skill's second criterion flags a success measure that can move for another reason. This one moved back up because four people stopped being asked. Had 4.2 been judged by a measure like that, the skill would have flagged it before anyone relied on it.</p>
-    <p>The skill keeps the next plan honest. The offer record and the alert are what keep the next four from going unseen.</p>
-  </div>
-  <div class="scroll"><table class="res">
-    <thead><tr><th>Run</th><th>On</th><th>Result</th></tr></thead>
-    <tbody>
-      <tr><td class="n">1</td><td>My Module 5 brief</td><td><span class="flag">5 flags</span> No owner, no success measure, decay never scoped, unsourced numbers, and a simulated rate stated as fact.</td></tr>
-      <tr><td class="n">1b</td><td>The same brief, fixed</td><td><span class="pass">0 flags</span></td></tr>
-      <tr><td class="n">1c</td><td>The brief after later edits</td><td><span class="flag">4 flags</span> Two broken by edits made after it passed, and a modelled number the first two runs missed. Fixed: <span class="pass">0 flags</span></td></tr>
-      <tr><td class="n">1d</td><td>The brief cut to one page, stricter criteria</td><td><span class="pass">0 flags</span></td></tr>
-      <tr><td class="n">2</td><td>Four briefs with an answer key</td><td><span class="caveat">Matched, with a caveat</span> I ran it after reading the key, so the match proves little.</td></tr>
-      <tr><td class="n">3</td><td>A brief written to fail</td><td><span class="pass">Exact match</span> Expectation written first. It caught all three planted problems, including a success measure the skill's first wording would have passed.</td></tr>
-      <tr><td class="n">Peer</td><td>Two classmates' briefs</td><td><span class="flag">3 flags each</span> Both missing a named owner.</td></tr>
-    </tbody>
-  </table></div>
-  <p class="small">Every run so far applied the skill's written instructions by hand from another session. It loads on its own in a session opened in this repo, which is where a scheduled run would happen. The weekly schedule is documented in <a href="06-sidekicks/schedule.md">06-sidekicks/schedule.md</a> rather than left running for a fictional scenario.</p>
 </section>
 
 <section id="wrong">
@@ -950,12 +906,4 @@ renderPhone();
     <a href="4.2-investigation.md">The investigation log</a>
   </div>
 </div></footer>
-<script>
-function flip(dash){
-  document.getElementById('figDash').hidden=!dash;
-  document.getElementById('figPeople').hidden=dash;
-  document.getElementById('vDash').setAttribute('aria-pressed',dash);
-  document.getElementById('vPeople').setAttribute('aria-pressed',!dash);
-}
-</script>
 </body></html>
