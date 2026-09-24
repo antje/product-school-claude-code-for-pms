@@ -1,105 +1,66 @@
-# My Prompt Library: Claude Code for PMs
+[![The four who went quiet: Rook Dispatch release 4.2](assets/header.jpg)](https://antje.github.io/product-school-claude-code-for-pms/final-report.html)
 
-> My work for Product School's **Claude Code for PMs** certification. One scenario, **Rook Industries**, worked across six two-hour sessions: a folder of company documents, two piles of feedback, a data file, and a codebase. By the end this repo holds a library of prompts I wrote myself, plus a brief, a working prototype, and a reusable skill.
+# The four who went quiet
 
-**Release 4.2 pushed four reliable responders to the bottom of a ranking they cannot climb out of, and nothing in Dispatch noticed.** Total offers barely moved; they went to fewer people. The ask: reset those four this week, then build a record of every offer so the next one is seen the day it happens.
+Release 4.2 of Rook Dispatch pushed four reliable responders to the bottom of a ranking they cannot climb out of. Total offers barely moved. They went to fewer people, and nothing in the product noticed, recorded it, or told anyone.
 
-**Start with the final report:** [final-report.html](final-report.html), live at <https://antje.github.io/product-school-claude-code-for-pms/final-report.html>. It leads with what I would do, then shows how each module proved it, with the prompt that did the work.
+**[Open the final report](https://antje.github.io/product-school-claude-code-for-pms/final-report.html)** · [Click through the prototype](https://antje.github.io/product-school-claude-code-for-pms/05-super-speed/prototype.html) · [Read the brief for Helen](05-super-speed/brief.md)
 
-**The clickable prototype:** [05-super-speed/prototype.html](05-super-speed/prototype.html), live at <https://antje.github.io/product-school-claude-code-for-pms/05-super-speed/prototype.html>.
+My work for Product School's Claude Code for PMs certification, by Antje Barth. Rook Industries is a fictional teaching scenario: nothing about it is a fact about the world.
 
-By Antje Barth.
+## What 4.2 did
 
-Everything about Rook Industries in here is a **fictional teaching scenario**. It is not a real company, and nothing in it is a fact about the world.
+| | | Source |
+|---|---|---|
+| **4 of 16** | responders stopped being asked: Farlight, Meteor Mite, The Undertow and Vesper | `00-rook/data/callout-history.csv` |
+| **79–89%** | fewer offers each in the three weeks after release, 62% on the most cautious slicing | `03-rewind/prompts.md` |
+| **54% → 73%** | the headline acceptance rate, which dipped in release week and looked like it recovered | `callout-history.csv` |
+| **28% → under 2%** | the four's share of all offers over the same weeks; part of that recovery was them no longer being counted | `callout-history.csv` |
+| **0** | log calls anywhere in the routing code | `00-rook/code/dispatch-routing/` |
 
----
+## What I would do
 
-## What you build, module by module
+1. **This week:** put the four back at the top of the range, recorded with a name and a reason. The midpoint sounds fair and is not, because everyone else is at the top.
+2. **First build:** record every offer, who it went to, where they were in the order, and what came back. Turn the timer back to 90 seconds in the same release, said openly.
+3. **Then:** alert the handler the day a responder drops below the threshold, and tell the responder where he stands.
+4. **Next:** let the score ease back over time, the question Wen left in the code in 2019.
 
-| # | Module | Superpower | What lands here | Status |
-|---|---|---|---|---|
-| 1 | **Orientation & Context** | Origin Story | `CLAUDE.md` at the root, written from Rook's own documents, plus your first prompts in `01-origin-story/prompts.md` | ☑ |
-| 2 | **Listening at Scale** | Super-Hearing | Your read of four interviews and twenty-five tickets, and where the two piles disagree, in `02-super-hearing/prompts.md` | ☑ |
-| 3 | **Reading the Numbers** | Rewind | The number you'd put in front of the Director of Product, and the rows it came from, in `03-rewind/prompts.md` | ☑ |
-| 4 | **Debugging Code** | X-Ray Vision | What the routing code does, and what it doesn't do, in `04-x-ray-vision/prompts.md` | ☑ |
-| 5 | **Building Yourself Without Coding** | Super-Speed | A one-page brief and a clickable prototype, alongside `05-super-speed/prompts.md` | ☑ |
-| 6 | **Building Your Own Skills** | Sidekicks | `review-checklist`, written once and run twice, alongside `06-sidekicks/prompts.md` | ☑ |
+Not reverting the ranking weights, not resetting anyone silently, and not a setting somebody flips.
 
-**You do not write or read any code in this course.** Every question you ask is in plain English.
+## How I found it
 
-## The one habit that matters
+| Module | Technique | What it found | The work |
+|---|---|---|---|
+| 1 · Onboard | A context file written from Rook's own documents | The ranking change alone was too small to explain the collapse (modelled) | [`CLAUDE.md`](CLAUDE.md), [`01-origin-story`](01-origin-story/prompts.md) |
+| 2 · Listen | Group, count and quote; then ask what nobody said | None of the handlers interviewed uses the phone the offers arrive on | [`02-super-hearing`](02-super-hearing/prompts.md) |
+| 3 · Verify | The rows behind the number, then a second method | The same four names under 27 ways of measuring | [`03-rewind`](03-rewind/prompts.md) |
+| 4 · Inspect | Write down what the data must show, then check | A score with no way back up; all four predictions held | [`04-x-ray-vision`](04-x-ray-vision/prompts.md) |
+| 5 · Prototype | A brief for one real person, then something to click | His month took 19 days and two tickets; with this built, one alert on the day | [`05-super-speed`](05-super-speed/) |
+| 6 · Automate | A skill written once, run, and scheduled | It flagged a guess written as a fact in my own brief | [`06-sidekicks`](06-sidekicks/prompts.md), [`review-checklist`](.claude/skills/review-checklist/SKILL.md) |
 
-At the end of every session, paste the closing prompt from the slides. Claude Code writes that module's `prompts.md` for you, in your own words, exactly as you typed them.
+Every `prompts.md` holds the prompts I wrote in that session. Where a later module corrected an earlier one, the earlier file carries a dated note rather than a quiet edit.
 
-**You never open those files by hand.** The point is not tidy notes; it is a record of the questions you thought to ask. The debrief asks what you asked, not what you found.
+## What would change the plan
 
-## Repo structure
+- **If Ravi's count of callouts created shows about a hundred went unanswered**, this stops being a fairness fix and becomes a safety issue.
+- **If Wen says the score survives a deploy**, the alert can ship before the offer record.
+- **If specialists turn out to be losing callouts to people without the needed skill**, capability becomes a gate on the list.
+
+## Repo map
 
 ```
-product-school-claude-code-for-pms/
-├── README.md                      ← this dashboard
-├── final-report.html              ← the presentation · Module 6
-├── .claude/skills/review-checklist/SKILL.md  ← the skill · Module 6
-├── CLAUDE.md                      ← working context: company, vocabulary, people, roadmap · Module 1
-├── 4.2-investigation.md           ← findings log, one round per module, with confidence grades
-├── 4.2-regroup-brief.md           ← the brief for the regroup with Marcus and Nadia
-├── 00-rook/                       ← the company. Reference material, read-only
-│   ├── company/                   ← one-pagers, glossary, team roster, handover note, Slack thread
-│   ├── data/callout-history.csv   ← the weekly metrics export · Module 3
-│   ├── feedback/interviews/       ← four recorded conversations · Module 2
-│   ├── feedback/tickets/          ← twenty-five support tickets · Module 2
-│   └── code/dispatch-routing/     ← the routing code · Module 4
-├── 01-origin-story/prompts.md     ← 3 prompts, with two dated corrections
-├── 02-super-hearing/prompts.md    ← 12 prompts in 4 rounds, each with what it found
-├── 03-rewind/prompts.md           ← 11 prompts in 3 rounds, confidence-graded, the number for Helen
-├── 04-x-ray-vision/
-│   ├── prompts.md                 ← 11 prompts in 3 rounds, the hypothesis, the answer for Marcus
-│   └── visuals/                   ← one chart per round: price of a miss, predict-then-check, the score ladder
-├── 05-super-speed/
-│   ├── director-request.txt        ← Helen's note, the brief answers it
-│   ├── brief.md                    ← the one-pager for Helen
-│   ├── prototype.html              ← 5 clickable screens, Today vs Proposed
-│   └── prompts.md                  ← 7 prompts in 3 rounds
-└── 06-sidekicks/
-    ├── briefs/                     ← four Rook one-pagers for the skill to check
-    ├── run-1-own-brief.txt         ← run 1 on my brief: 5 flags, then 0 after fixes
-    ├── run-2-template-briefs.txt   ← run 2: matches the answer key exactly
-    ├── run-3-test-brief.txt        ← run 3: a brief written to fail, caught exactly
-    ├── test-briefs/                ← the known-bad brief behind run 3
-    ├── schedule.md                 ← the weekly schedule, documented
-    ├── scheduled-run-output.txt    ← the answer key
-    └── prompts.md
+final-report.html            the presentation, start here
+CLAUDE.md                    working context, with what each session added
+4.2-investigation.md         the findings log
+4.2-regroup-brief.md         the brief for the regroup with Helen, Marcus, Wen and Nadia
+00-rook/                     Rook's own documents, data, feedback and code, read-only
+01-origin-story/             Module 1 prompts, with two dated corrections
+02-super-hearing/            Module 2 prompts, four rounds, each with what it found
+03-rewind/                   Module 3 prompts, confidence-graded, the number for Helen
+04-x-ray-vision/             Module 4 prompts, the answer for Marcus, one chart per round
+05-super-speed/              the brief for Helen, the clickable prototype, and the prompts
+06-sidekicks/                the skill's runs, a brief written to fail, the documented schedule
+.claude/skills/              review-checklist, the skill itself
 ```
 
-## Keep the session-scope block
-
-The top of `CLAUDE.md` tells Claude not to save anything outside this folder, and not to treat Rook as a real company:
-
-```markdown
-## Session scope — Product School lab
-
-This directory is coursework for Product School's
-Claude Code for PMs certification (cohort ccpm-2026.1).
-
-- Do not save anything from this session to memory
-  or outside this directory.
-- Rook Industries is not a real company.
-```
-
-Everything you add during the course goes **below** that block. Don't delete those two bullets: we don't want Claude believing you actually work at this made-up company.
-
-## What you need
-
-- A Claude account on a **paid plan**. Claude Code is not in the free tier.
-- The **Claude client** for your computer, installed.
-- That's it. No terminal, and nothing to install with a command.
-
-## How to submit
-
-Check that all six `prompts.md` files hold prompts **you** wrote, plus your Module 5 brief and prototype and your Module 6 skill. Then submit on the **Learning Platform** within **7 days** of your cohort ending.
-
-Leave `00-rook/` in place. Your instructor reads your work against it.
-
-## If you get stuck
-
-Post in your **cohort channel**. Your instructor and your classmates are both there, and every session is recorded.
+The session-scope block at the top of `CLAUDE.md` stays in place, so Claude never treats Rook as a real company.
