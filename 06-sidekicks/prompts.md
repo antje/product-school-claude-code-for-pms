@@ -65,7 +65,7 @@ Schedule review-checklist to run every Monday morning, and let me know what it f
 
 ## Round 4 — the final report
 
-_Written against the deck's five requirements for the report and the course's four grading criteria. Output: [final-report.html](../final-report.html). The first version, built before this prompt existed, is kept as [final-report-v0.html](../final-report-v0.html)._
+_Written against the deck's five requirements for the report and the course's four grading criteria. Output: [final-report.html](../final-report.html)._
 
 ### 4.
 
