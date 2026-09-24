@@ -1,10 +1,11 @@
-# What we'd build instead of turning the timer back up
+# What we'd build alongside turning the timer back up
 
 For Helen. Rough on purpose.
 
-**Owner:** me. Marcus's team builds, Sofia designs the screens. Figures are
-from `callout-history.csv`, the routing code and the tickets; the working is
-in `4.2-investigation.md`.
+**Owner:** Antje Barth, PM on Dispatch. Marcus's team builds, Sofia designs
+the screens. Figures are from `callout-history.csv`, the routing code and the
+tickets; the working is in `4.2-investigation.md`, `03-rewind/prompts.md` and
+`04-x-ray-vision/prompts.md`.
 
 ---
 
@@ -15,7 +16,8 @@ gets in a week instead of watching it go.
 It still leaves him at one offer a week. The timer decides how long he has to
 answer; the recent-acceptance score decides whether he is asked at all, and
 his is on the floor. Engineering's afternoon fix addresses the thing he
-complained about second.
+complained about second. We should still do it, in the same release as
+everything below and said out loud, not quietly and not on its own.
 
 **Wen's 2019 note asked whether the score should ease back toward neutral on
 its own. It should.** Nobody should carry a bad month into the spring, and
@@ -64,8 +66,9 @@ is how we learn from data whether scores survive a deploy.
 
 **Then Okafor gets told instead of noticing.** When a responder's score crosses
 a low threshold, his handler gets an alert: who, when, and how many callouts
-since. All four affected responders crossed 0.2 during release week, so Okafor
-would have had this around 16 August. He worked it out himself by the 19th,
+since. If every score started release week at 0.5, as the code suggests, all
+four affected responders crossed 0.2 that week, so Okafor would have had this
+around 16 August. He worked it out himself by the 19th,
 filed it Low because nothing told him it was serious, and waited.
 
 **The Undertow gets his question answered.** On his phone: you are still
@@ -115,7 +118,8 @@ which we would have to build, since nothing here records anything today.
   changed someone's standing without telling anybody.
 - **Doesn't promise The Undertow work.** It tells him where he stands, including
   when the answer is that he is behind.
-- **Isn't a setting.** Nothing here ships by flipping a flag.
+- **Isn't just a setting.** The timer is one number. Everything else here is
+  something a handler or a responder will notice.
 - **Doesn't touch Supply.** Halloran's eleven-day wait on a cracked vest plate
   is real and is not this.
 

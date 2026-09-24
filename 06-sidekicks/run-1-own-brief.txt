@@ -58,3 +58,54 @@ brief.md
   -> 0 flags.
 
 1 brief checked, 0 flagged, 0 flags total.
+
+
+---
+Run 1c, after later edits to the brief, same day
+
+The brief was edited twice after run 1b: tightened for length, then given
+a sharper success measure. Re-running caught what those edits broke.
+
+brief.md, before fixing
+  owner named ................... NO: flagged ("Owner: me." with no name
+                                  anywhere in the brief)
+  success measure ............... yes
+  scope stays bounded ........... NO: flagged ("The quick fix is real"
+                                  endorses the timer revert, then never
+                                  says whether it ships)
+  problem stated before fix ..... yes
+  evidence numbers sourced ...... NO: flagged (points only to
+                                  4.2-investigation.md, which holds none of
+                                  "thirteen", "nineteen minutes", "0.2")
+  unknowns written as unknowns .. NO: flagged ("All four affected
+                                  responders crossed 0.2 during release
+                                  week" is a modelled result stated as
+                                  observed)
+  -> 4 flags.
+
+Fixing the scope flag meant deciding: the timer revert is in, in the same
+release, said out loud. That decision broke two more things on the next
+pass: section 3 still said "Nothing here ships by flipping a flag", and
+the title still said "instead of turning the timer back up". Both fixed.
+
+brief.md, after fixing
+  owner named ................... yes (Antje Barth, PM on Dispatch)
+  success measure ............... yes
+  scope stays bounded ........... yes (timer in, decay out, title matches)
+  problem stated before fix ..... yes (the opening names the timer fix
+                                  Helen raised, to argue it is not enough;
+                                  the score problem comes before anything
+                                  this brief proposes)
+  evidence numbers sourced ...... yes (all three sources named)
+  unknowns written as unknowns .. yes ("If every score started release
+                                  week at 0.5")
+  -> 0 flags.
+
+What this run showed
+- Two of the four flags were introduced by edits made after the brief
+  had already passed. A brief that passed once is not a brief that passes.
+- The 0.2 flag was present in runs 1 and 1b and missed both times. The
+  criterion was right; applying it missed a case. Modelled numbers need
+  the same scrutiny as guessed ones.
+- Every fix is also a new edit. The timer decision needed three passes
+  before the brief was consistent again.
