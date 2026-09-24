@@ -1,0 +1,60 @@
+review-checklist — run 1, on my own Module 5 brief
+Run: 2026-09-24, in class
+Source: 05-super-speed/brief.md
+
+brief.md
+  owner named ................... NO: flagged
+  success measure ............... NO: flagged
+  scope stays bounded ........... NO: flagged
+  problem stated before fix ..... yes
+  evidence numbers sourced ...... NO: flagged
+  unknowns written as unknowns .. NO: flagged
+  -> 5 flags:
+     owner: names who must decide ("Three decisions are open and not mine
+       alone", Helen, Marcus, Wen) and what I will decide ("Two I'll decide
+       unless someone objects"), but never who builds it or is on the hook
+       for it shipping.
+     success measure: says what changes for Okafor and The Undertow, never
+       what we would measure to know it worked.
+     scope: the opening endorses decay ("It should."), then the four things
+       the brief builds are the record, the alert, the phone screen and the
+       lift. Decay is never placed in scope or out of it.
+     evidence numbers: "thirteen in a row", "about nineteen minutes", "about
+       a hundred" and "crossed 0.2" are all correct but nothing says where
+       they come from.
+     unknowns: "decay is slow, roughly 0.02 a day" states a rate for a
+       feature that does not exist. 0.02 was a rate I assumed in a Module 4
+       simulation, not a property of anything.
+
+1 brief checked, 1 flagged, 5 flags total.
+
+What I think of the result
+- All five are real. The owner and success-measure flags are the two the
+  starter criteria were written to catch, and my brief misses both.
+- The two criteria I added caught the most dangerous one: "0.02 a day"
+  reads as a fact and would travel into someone's decision as one. That
+  is exactly how the fabricated push defect got into a committed file in
+  Module 1.
+- It did not flag the brief for length or tone, and did not flag the
+  proposed 0.2 threshold as unsourced. Both are the rules working as
+  written, not misses.
+
+
+---
+Re-run after fixing the brief, same day
+
+brief.md
+  owner named ................... yes ("Owner: me, as PM on Dispatch",
+                                  Marcus's team builds, Sofia designs)
+  success measure ............... yes (nobody below the threshold for more
+                                  than a week unseen; T-013-style tickets
+                                  stop arriving)
+  scope stays bounded ........... yes ("Decay is not in this build")
+  problem stated before fix ..... yes
+  evidence numbers sourced ...... yes (one line naming the three sources
+                                  and where the working lives)
+  unknowns written as unknowns .. yes ("At 0.02 a day, the rate I
+                                  modelled")
+  -> 0 flags.
+
+1 brief checked, 0 flagged, 0 flags total.

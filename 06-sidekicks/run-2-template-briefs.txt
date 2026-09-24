@@ -1,0 +1,55 @@
+review-checklist — run 2, on the four briefs in 06-sidekicks/briefs/
+Run: 2026-09-24, in class
+Source: 06-sidekicks/briefs/ (4 files)
+Stands in for the partner swap: I worked alone, and these four come with an
+answer key in scheduled-run-output.txt, which makes them a harder test.
+
+bulk-callout.txt
+  owner named ................... NO: flagged
+  success measure ............... yes
+  scope stays bounded ........... yes
+  problem stated before fix ..... yes
+  evidence numbers sourced ...... n/a
+  unknowns written as unknowns .. yes
+  -> 1 flag: owner. Ends "nobody's picked it up yet"; flagging it "for
+     whoever picks it up next quarter" is not naming one.
+
+handler-phone-app.txt
+  owner named ................... yes (Sofia)
+  success measure ............... yes
+  scope stays bounded ........... yes
+  problem stated before fix ..... NO: flagged
+  evidence numbers sourced ...... n/a
+  unknowns written as unknowns .. yes
+  -> 1 flag: solution before problem. Opens "We should build a phone app
+     for handlers"; Aunt Dot's actual problem does not appear until the
+     second section.
+
+requisition-approval-chains.txt
+  owner named ................... yes (Halloran's team, Supply)
+  success measure ............... yes
+  scope stays bounded ........... NO: flagged
+  problem stated before fix ..... yes
+  evidence numbers sourced ...... n/a ($2,000 is a proposed threshold)
+  unknowns written as unknowns .. yes ("TBD" named as open)
+  -> 1 flag: scope grows. Says "That's the whole ask", then the next
+     paragraph adds routing around slow approvers, a cross-site dashboard,
+     handler visibility, and replacing the gear-cage spreadsheet.
+
+routing-override-audit-log.txt
+  owner named ................... yes (Marcus's team)
+  success measure ............... NO: flagged
+  scope stays bounded ........... yes
+  problem stated before fix ..... yes
+  evidence numbers sourced ...... n/a
+  unknowns written as unknowns .. yes
+  -> 1 flag: no success measure. Says what gets logged and where it
+     shows up, never how anyone would know it is working.
+
+4 briefs checked, 4 flagged, 4 flags total.
+
+Against the answer key
+- Same four flags as scheduled-run-output.txt, same brief for each, one
+  flag each. No misses, no extra flags.
+- The two criteria I added produced no false positives on these four,
+  which is the check that they are not noise.
