@@ -1,9 +1,9 @@
 ---
-name: review-product-brief
-description: Checks a product brief or one-pager for the six things a brief must cover before it goes any further. Use when asked to review, check or run review-product-brief on a brief, a one-pager, or a folder of them. Reports one line per criterion and quotes the text behind every flag.
+name: review-checklist
+description: Checks a product brief or one-pager for the six things a brief must cover before it goes any further. Use when asked to review, check or run review-checklist on a brief, a one-pager, or a folder of them. Reports one line per criterion and quotes the text behind every flag.
 ---
 
-# review-product-brief
+# review-checklist
 
 Check a brief against six criteria and report what is missing. Same check
 every time, whoever runs it.

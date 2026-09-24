@@ -1,4 +1,4 @@
-<!-- Test fixture for review-product-brief. Expected result is recorded in
+<!-- Test fixture for review-checklist. Expected result is recorded in
      ../run-3-test-brief.txt, written before the run. Not a Rook document. -->
 
 # Availability Confidence: one-pager
