@@ -53,3 +53,6 @@ Against the answer key
   flag each. No misses, no extra flags.
 - The two criteria I added produced no false positives on these four,
   which is the check that they are not noise.
+- Caveat: I ran this after reading scheduled-run-output.txt, so the match
+  is not independent evidence. Run 3, on a brief written to fail with the
+  expectation recorded first, is the stronger test.

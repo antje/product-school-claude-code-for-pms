@@ -29,8 +29,9 @@ habit, not waiting on the result.
 
 `scheduled-run-output.txt` is the shape of a real run: four briefs, four
 flags, one each, every flag quoting the words behind it. Run 2 of my skill
-reproduced it exactly, which is the evidence the schedule would report the
-same thing on its own.
+matched it, but I ran it after reading that file, so the match proves
+little. The real test is the skill running in a session opened in this
+repo, without the answer key in view.
 
 ## Why it earns a schedule
 
